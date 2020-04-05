@@ -1,11 +1,11 @@
-import {Dish} from "./dish.model";
+// import {Dish} from "./dish.model";
 
 export class OrderItem {
-  dish: Dish;
+  // dish: Dish;
   quantity: number;
 
-  constructor(dish: Dish, quantity: number) {
-    this.dish = dish;
-    this.quantity = quantity;
-  }
+  // constructor(dish: Dish, quantity: number) {
+  //   this.dish = dish;
+  //   this.quantity = quantity;
+  // }
 }
