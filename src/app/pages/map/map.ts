@@ -49,13 +49,17 @@ export class MapPage implements AfterViewInit {
         const marker = new googleMaps.Marker({
           position: markerData,
           map,
+          draggable:true,
           title: markerData.name
         });
 
         marker.addListener('click', () => {
           infoWindow.open(map, marker);
+          // console.log(marker.position.lat());
+          // console.log(marker.position.lng());
         });
       });
+
 
       googleMaps.event.addListenerOnce(map, 'idle', () => {
         mapEle.classList.add('show-map');
