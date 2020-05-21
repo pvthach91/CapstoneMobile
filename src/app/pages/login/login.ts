@@ -8,6 +8,9 @@ import { UserOptions } from '../../interfaces/user-options';
 import {AuthService} from "../../auth/auth.service";
 import {TokenStorageService} from "../../auth/token-storage.service";
 import {AuthLoginInfo} from "../../auth/login-info";
+import {AlertController} from "@ionic/angular";
+import {ConfigurationStorage} from "../../services/configuration-storage.service";
+import {ConfigurationSingletonService} from "../../services/configuration-singleton.service";
 
 
 
@@ -25,8 +28,11 @@ export class LoginPage implements OnInit{
 
   constructor(
     private authService: AuthService,
+    public alertController: AlertController,
     private tokenStorage: TokenStorageService,
     public userData: UserData,
+    private configurationSingletonService: ConfigurationSingletonService,
+    private configurationStorage: ConfigurationStorage,
     public router: Router
   ) { }
 
@@ -34,6 +40,17 @@ export class LoginPage implements OnInit{
     if (this.tokenStorage.isLoggedIn()) {
       this.router.navigateByUrl('/app/tabs/schedule');
     }
+  }
+
+  async presentAlert(header: string, subHeader: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      subHeader: subHeader,
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
   onLogin(form: NgForm) {
@@ -54,18 +71,44 @@ export class LoginPage implements OnInit{
             this.tokenStorage.saveUsername(data.data.username);
             this.tokenStorage.saveFullName(data.data.fullName);
             this.tokenStorage.saveAuthorities(data.data.authorities);
-            this.router.navigateByUrl('/app/tabs/schedule');
+            if(!this.tokenStorage.hasAdminRole()) {
+              this.storeConfiguration();
+            }
+
+            this.reloadPage();
+            // this.router.navigateByUrl('/app/tabs/schedule');
           } else {
-            console.log('failed:' + data.message);
+            this.presentAlert('Login failed', '', data.message);
           }
         },
         error => {
-          console.log('failed');
+          this.presentAlert('Login failed', '', 'Please check your username and password');
         }
       );
 
 
     }
+  }
+
+  reloadPage() {
+    let defaultPage = this.tokenStorage.getDefaultPage();
+    this.router.navigate([defaultPage]);
+  }
+
+  storeConfiguration() {
+    this.configurationSingletonService.getConfigurations().subscribe(
+      data => {
+        if (data != null) {
+          this.configurationStorage.saveConfiguration(data);
+          console.log(JSON.stringify(data));
+        } else {
+          this.presentAlert('Failed', '', 'Failed to get configuration');
+        }
+      },
+      error => {
+        this.presentAlert('Failed', '', 'Failed to get configuration');
+      }
+    );
   }
 
   onSignup() {

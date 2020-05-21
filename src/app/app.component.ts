@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Storage } from '@ionic/storage';
 
 import { UserData } from './providers/user-data';
+import {TokenStorageService} from "./auth/token-storage.service";
 
 @Component({
   selector: 'app-root',
@@ -52,6 +53,7 @@ export class AppComponent implements OnInit {
     private storage: Storage,
     private userData: UserData,
     private swUpdate: SwUpdate,
+    private tokenStorage: TokenStorageService,
     private toastCtrl: ToastController,
   ) {
     this.initializeApp();
@@ -112,9 +114,8 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    this.userData.logout().then(() => {
-      return this.router.navigateByUrl('/app/tabs/schedule');
-    });
+    this.tokenStorage.signOut();
+    this.router.navigate(['/app/login']);
   }
 
   openTutorial() {

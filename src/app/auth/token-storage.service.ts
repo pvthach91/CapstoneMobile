@@ -13,46 +13,46 @@ export class TokenStorageService {
   constructor() { }
 
   signOut() {
-    window.sessionStorage.clear();
+    window.localStorage.clear();
   }
 
   public saveToken(token: string) {
-    window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.setItem(TOKEN_KEY, token);
+    window.localStorage.removeItem(TOKEN_KEY);
+    window.localStorage.setItem(TOKEN_KEY, token);
   }
 
   public getToken(): string {
-    return sessionStorage.getItem(TOKEN_KEY);
+    return localStorage.getItem(TOKEN_KEY);
   }
 
   public saveUsername(username: string) {
-    window.sessionStorage.removeItem(USERNAME_KEY);
-    window.sessionStorage.setItem(USERNAME_KEY, username);
+    window.localStorage.removeItem(USERNAME_KEY);
+    window.localStorage.setItem(USERNAME_KEY, username);
   }
 
   public getUsername(): string {
-    return sessionStorage.getItem(USERNAME_KEY);
+    return localStorage.getItem(USERNAME_KEY);
   }
 
   public saveFullName(username: string) {
-    window.sessionStorage.removeItem(FULLNAME_KEY);
-    window.sessionStorage.setItem(FULLNAME_KEY, username);
+    window.localStorage.removeItem(FULLNAME_KEY);
+    window.localStorage.setItem(FULLNAME_KEY, username);
   }
 
   public getFullName(): string {
-    return sessionStorage.getItem(FULLNAME_KEY);
+    return localStorage.getItem(FULLNAME_KEY);
   }
 
   public saveAuthorities(authorities: string[]) {
-    window.sessionStorage.removeItem(AUTHORITIES_KEY);
-    window.sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
+    window.localStorage.removeItem(AUTHORITIES_KEY);
+    window.localStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
   }
 
   public getAuthorities(): string[] {
     this.roles = [];
 
-    if (sessionStorage.getItem(TOKEN_KEY)) {
-      JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY)).forEach(authority => {
+    if (localStorage.getItem(TOKEN_KEY)) {
+      JSON.parse(localStorage.getItem(AUTHORITIES_KEY)).forEach(authority => {
         this.roles.push(authority.authority);
       });
     }
@@ -60,11 +60,11 @@ export class TokenStorageService {
     return this.roles;
   }
 
-  public hasUserRole(): boolean {
+  public hasFarmerRole(): boolean {
     const roles = this.getAuthorities();
     let result = false;
     roles.forEach(role => {
-      if (role == 'ROLE_USER') {
+      if (role == 'ROLE_FARMER') {
         result = true;
       }
     });
@@ -93,55 +93,11 @@ export class TokenStorageService {
     return result;
   }
 
-  public hasHRRole(): boolean {
+  public hasBuyerRole(): boolean {
     const roles = this.getAuthorities();
     let result = false;
     roles.forEach(role => {
-      if (role == 'ROLE_HR') {
-        result = true;
-      }
-    });
-    return result;
-  }
-
-  public hasAccountingRole(): boolean {
-    const roles = this.getAuthorities();
-    let result = false;
-    roles.forEach(role => {
-      if (role == 'ROLE_ACCOUNTING') {
-        result = true;
-      }
-    });
-    return result;
-  }
-
-  public hasStockRole(): boolean {
-    const roles = this.getAuthorities();
-    let result = false;
-    roles.forEach(role => {
-      if (role == 'ROLE_STOCK') {
-        result = true;
-      }
-    });
-    return result;
-  }
-
-  public hasSaleRole(): boolean {
-    const roles = this.getAuthorities();
-    let result = false;
-    roles.forEach(role => {
-      if (role == 'ROLE_SALE') {
-        result = true;
-      }
-    });
-    return result;
-  }
-
-  public hasBODRole(): boolean {
-    const roles = this.getAuthorities();
-    let result = false;
-    roles.forEach(role => {
-      if (role == 'ROLE_BOD') {
+      if (role == 'ROLE_BUYER') {
         result = true;
       }
     });
@@ -156,33 +112,16 @@ export class TokenStorageService {
     }
   }
 
-  getCurrentDepartment():string {
-    if (this.hasAdminRole()) {
-      return 'ADMIN DEPARTMENT';
-    } else if (this.hasHRRole()) {
-      return 'HR DEPARTMENT';
-    }if (this.hasAccountingRole()) {
-      return 'ACC DEPARTMENT';
-    }if (this.hasStockRole()) {
-      return 'STOCK DEPARTMENT';
-    }if (this.hasSaleRole()) {
-      return 'SALE DEPARTMENT';
-    }if (this.hasBODRole()) {
-      return 'BOD';
-    }
-  }
-
   public getDefaultPage(): string {
     if (this.hasAdminRole()) {
-      return 'management/sysadmin';
-    } else if (this.hasHRRole()) {
-      return 'management/humanresource';
-    }if (this.hasAccountingRole()) {
-      return 'management/accounting';
-    }if (this.hasStockRole()) {
-      return 'management/stock';
-    }if (this.hasSaleRole()) {
-      return 'management/sale';
+      return '/my-account/user';
+    } else if (this.hasBuyerRole()) {
+      return '/home';
+    }if (this.hasFarmerRole()) {
+      // return 'app/my-account/my-store';
+      return '/app/tabs/schedule';
+    }else if (this.hasPMRole()) {
+      return '/my-account/order';
     }
   }
 }

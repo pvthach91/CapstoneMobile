@@ -1,9 +1,9 @@
 export class OrderItemRequest {
-  dishId: number;
+  productId: number;
   quantity: number;
 
-  constructor(dishId: number, quantity: number) {
-    this.dishId = dishId;
+  constructor(productId: number, quantity: number) {
+    this.productId = productId;
     this.quantity = quantity;
   }
 }

@@ -1,22 +1,22 @@
 import {OrderItemRequest} from "./order-item-request.model";
 
 export class OrderRequest {
-  orderBy: string;
-  email: string;
-  phone: string;
   address: string;
+  latitude: number;
+  longitude: number;
   totalPrice: number;
+  shippingMethod: string;
+  shippingPrice: number;
   items: Array<OrderItemRequest>;
 
 
-  constructor(orderBy: string, email: string, phone: string,
-              address: string, totalPrice: number,
-              items: Array<OrderItemRequest>) {
-    this.orderBy = orderBy;
-    this.email = email;
-    this.phone = phone;
+  constructor(address: string, latitude: number, longitude: number, totalPrice: number, shippingMethod: string, shippingPrice: number, items: Array<OrderItemRequest>) {
     this.address = address;
+    this.latitude = latitude;
+    this.longitude = longitude;
     this.totalPrice = totalPrice;
+    this.shippingMethod = shippingMethod;
+    this.shippingPrice = shippingPrice;
     this.items = items;
   }
 }
