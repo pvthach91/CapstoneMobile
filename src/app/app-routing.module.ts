@@ -93,6 +93,10 @@ const routes: Routes = [
   {
     path: 'deliver-address',
     loadChildren: () => import('./pages/deliver-address/deliver-address.module').then( m => m.DeliverAddressPageModule)
+  },
+  {
+    path: 'farm',
+    loadChildren: () => import('./pages/farm/farm.module').then( m => m.FarmPageModule)
   }
 ];
 
