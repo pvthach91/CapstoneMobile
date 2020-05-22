@@ -61,6 +61,10 @@ const routes: Routes = [
         loadChildren: () => import('../order/order.module').then( m => m.OrderPageModule)
       },
       {
+        path: 'chat',
+        loadChildren: () => import('../chat/chat.module').then( m => m.ChatPageModule)
+      },
+      {
         path: '',
         redirectTo: '/app-tab/tabs/schedule',
         pathMatch: 'full'
