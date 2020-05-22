@@ -77,11 +77,7 @@ const routes: Routes = [
     path: '',
     redirectTo: '/tutorial',
     pathMatch: 'full'
-  },
-  {
-    path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
-  },
+  }
 ];
 
 @NgModule({
