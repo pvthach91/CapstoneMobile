@@ -20,7 +20,7 @@ import {ConfigurationSingletonService} from "../../services/configuration-single
   styleUrls: ['./login.scss'],
 })
 export class LoginPage implements OnInit{
-  login: UserOptions = { username: '', password: '' };
+  // login: UserOptions = { username: '', password: '' };
   submitted = false;
 
   form: any = {};
@@ -30,7 +30,7 @@ export class LoginPage implements OnInit{
     private authService: AuthService,
     public alertController: AlertController,
     private tokenStorage: TokenStorageService,
-    public userData: UserData,
+    // public userData: UserData,
     private configurationSingletonService: ConfigurationSingletonService,
     private configurationStorage: ConfigurationStorage,
     public router: Router
@@ -110,8 +110,8 @@ export class LoginPage implements OnInit{
       }
     );
   }
-
-  onSignup() {
-    this.router.navigateByUrl('/signup');
-  }
+  //
+  // onSignup() {
+  //   this.router.navigateByUrl('/signup');
+  // }
 }

@@ -49,18 +49,19 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'about',
-        children: [
-          {
-            path: '',
-            loadChildren: () => import('../about/about.module').then(m => m.AboutModule)
-          }
-        ]
-      },
-      {
         path: '',
         redirectTo: '/app/tabs/schedule',
         pathMatch: 'full'
+      }
+    ]
+  },
+  
+  {
+    path: 'about',
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('../about/about.module').then(m => m.AboutModule)
       }
     ]
   },
