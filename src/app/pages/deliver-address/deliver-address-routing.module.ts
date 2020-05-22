@@ -7,6 +7,14 @@ const routes: Routes = [
   {
     path: '',
     component: DeliverAddressPage
+  },
+  {
+    path: 'view/:id',
+    loadChildren: () => import('./deliver-address-new/deliver-address-new.module').then( m => m.DeliverAddressNewPageModule)
+  },
+  {
+    path: 'new',
+    loadChildren: () => import('./deliver-address-new/deliver-address-new.module').then( m => m.DeliverAddressNewPageModule)
   }
 ];
 
