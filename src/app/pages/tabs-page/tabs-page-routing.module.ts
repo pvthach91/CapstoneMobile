@@ -57,6 +57,10 @@ const routes: Routes = [
         loadChildren: () => import('../cart/cart.module').then( m => m.CartPageModule)
       },
       {
+        path: 'order',
+        loadChildren: () => import('../order/order.module').then( m => m.OrderPageModule)
+      },
+      {
         path: '',
         redirectTo: '/app-tab/tabs/schedule',
         pathMatch: 'full'
