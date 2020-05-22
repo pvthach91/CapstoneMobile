@@ -69,6 +69,10 @@ const routes: Routes = [
         loadChildren: () => import('../checkout/checkout.module').then( m => m.CheckoutPageModule)
       },
       {
+        path: 'my-store',
+        loadChildren: () => import('../my-store/my-store.module').then( m => m.MyStorePageModule)
+      },
+      {
         path: '',
         redirectTo: '/app-tab/tabs/schedule',
         pathMatch: 'full'
