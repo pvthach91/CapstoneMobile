@@ -77,6 +77,10 @@ const routes: Routes = [
     path: '',
     redirectTo: '/tutorial',
     pathMatch: 'full'
+  },
+  {
+    path: 'checkout',
+    loadChildren: () => import('./pages/checkout/checkout.module').then( m => m.CheckoutPageModule)
   }
 ];
 
