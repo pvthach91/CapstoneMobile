@@ -22,22 +22,22 @@ export class AppComponent implements OnInit {
   appPages = [
     {
       title: 'Schedule',
-      url: '/app/tabs/schedule',
+      url: '/app-tab/tabs/schedule',
       icon: 'calendar'
     },
     {
       title: 'Speakers',
-      url: '/app/tabs/speakers',
+      url: '/app-tab/tabs/speakers',
       icon: 'contacts'
     },
     {
       title: 'Map',
-      url: '/app/tabs/map',
+      url: '/app-tab/tabs/map',
       icon: 'map'
     },
     {
       title: 'About',
-      url: '/app/tabs/about',
+      url: '/app-tab/tabs/about',
       icon: 'information-circle'
     }
   ];

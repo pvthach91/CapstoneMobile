@@ -38,7 +38,7 @@ export class LoginPage implements OnInit{
 
   ngOnInit() {
     if (this.tokenStorage.isLoggedIn()) {
-      this.router.navigateByUrl('/app/tabs/schedule');
+      this.router.navigateByUrl('/app-tab/tabs/schedule');
     }
   }
 
@@ -58,7 +58,7 @@ export class LoginPage implements OnInit{
 
     if (form.valid) {
       // this.userData.login(this.login.username);
-      // this.router.navigateByUrl('/app/tabs/schedule');
+      // this.router.navigateByUrl('/app-tab/tabs/schedule');
 
       this.loginInfo = new AuthLoginInfo(
         this.form.username,
@@ -76,7 +76,7 @@ export class LoginPage implements OnInit{
             }
 
             this.reloadPage();
-            // this.router.navigateByUrl('/app/tabs/schedule');
+            // this.router.navigateByUrl('/app-tab/tabs/schedule');
           } else {
             this.presentAlert('Login failed', '', data.message);
           }

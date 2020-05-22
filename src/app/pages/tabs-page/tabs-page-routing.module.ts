@@ -50,57 +50,11 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/app/tabs/schedule',
+        redirectTo: '/app-tab/tabs/schedule',
         pathMatch: 'full'
       }
     ]
-  },
-  
-  {
-    path: 'about',
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('../about/about.module').then(m => m.AboutModule)
-      }
-    ]
-  },
-  {
-    path: 'account',
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('../account/account.module').then(m => m.AccountModule)
-      }
-    ]
-  },
-  {
-    path: 'support',
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('../support/support.module').then(m => m.SupportModule)
-      }
-    ]
-  },
-  {
-    path: 'login',
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('../login/login.module').then(m => m.LoginModule)
-      }
-    ]
-  },
-  {
-    path: 'signup',
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('../signup/signup.module').then(m => m.SignUpModule)
-      }
-    ]
-  },
+  }
 ];
 
 @NgModule({
