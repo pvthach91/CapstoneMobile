@@ -97,6 +97,10 @@ const routes: Routes = [
   {
     path: 'farm',
     loadChildren: () => import('./pages/farm/farm.module').then( m => m.FarmPageModule)
+  },
+  {
+    path: 'vehicle',
+    loadChildren: () => import('./pages/vehicle/vehicle.module').then( m => m.VehiclePageModule)
   }
 ];
 
