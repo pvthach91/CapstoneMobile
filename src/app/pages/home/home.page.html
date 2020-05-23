@@ -7,7 +7,12 @@
   </ion-toolbar>
 
   <ion-toolbar>
-    <ion-searchbar placeholder="Search"></ion-searchbar>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="search()"> Search</ion-button>
+
+    </ion-buttons>
+
+    <ion-searchbar [(ngModel)]="form.productName" placeholder="Search"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 

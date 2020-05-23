@@ -207,9 +207,9 @@ export class HomePage implements OnInit {
   }
 
 
-  searchFromHeader(productName: string) {
-    this.form.productName = productName;
-    this.search();
+  searchFromHeader() {
+    // this.form.productName = productName;
+    // this.search();
   }
 
 }
