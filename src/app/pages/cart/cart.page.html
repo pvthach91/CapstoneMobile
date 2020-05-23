@@ -8,5 +8,35 @@
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item *ngFor="let cart of shoppingCart; let i = index;">
+      <ion-thumbnail slot="start">
+        <ion-img src="{{configuration.host}}/api/guest/file/{{cart.product.images[0]}}"></ion-img>
+      </ion-thumbnail>
+      <ion-label>
+        {{cart.product.name}}
+        <p>PHP {{cart.product.promotionPrice | number}}</p>
+      </ion-label>
+      <div slot="end" class="item-list-right">
+        <ion-button (click)="decreaseQuantity(cart)" color="primary">-</ion-button>
+        <ion-input type="number" [(ngModel)]="shoppingCart[i].quantity"></ion-input>
+        <ion-button (click)="increaseQuantity(cart)" color="primary">+</ion-button>
+      </div>
+    </ion-item>
+  </ion-list>
 
+  <ion-footer>
+    <ion-list>
+      <ion-item>
+        <ion-label padding-left>
+          <strong>Total price: </strong>
+          <span>PHP {{totalPrice | number}}</span>
+        </ion-label>
+        <ion-button color="danger" routerLink="/checkout">
+          <ion-icon name="cart"></ion-icon>
+          Checkout
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-footer>
 </ion-content>

@@ -1,0 +1,11 @@
+.item-list-right{
+  text-align: right;
+  ion-button {
+    float: right;
+  }
+  ion-input {
+    float: right;
+    width: 45px;
+    text-align: center;
+  }
+}
