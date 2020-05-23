@@ -1,8 +1,14 @@
 .item-list-right{
   text-align: right;
-  ion-button , ion-icon{
+  ion-button{
     float: right;
     width: 20px;
+    height: 20px;
+    --border-radius: 50px;
+  }
+  ion-icon {
+    float: right;
+    padding-top: 11px;
   }
   ion-input {
     float: right;
@@ -20,4 +26,10 @@
 .discounted-price {
   color: #80bb01;
   font-size: 12px;
+}
+
+.pagination-button {
+  width: 25px!important;
+  height: 25px!important;
+  --border-radius: 50px!important;
 }

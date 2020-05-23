@@ -18,10 +18,15 @@
         <p>PHP {{cart.product.promotionPrice | number}}</p>
       </ion-label>
       <div slot="end" class="item-list-right">
-        <ion-button (click)="removeItem(cart.product.id)" color="danger">x</ion-button>
-        <ion-button (click)="increaseQuantity(cart)" color="primary">+</ion-button>
+<!--        <ion-button (click)="removeItem(cart.product.id)" color="danger">x</ion-button>-->
+<!--        <ion-button (click)="increaseQuantity(cart)" color="primary">+</ion-button>-->
+<!--        <ion-input type="number" [(ngModel)]="shoppingCart[i].quantity"></ion-input>-->
+<!--        <ion-button (click)="decreaseQuantity(cart)">-</ion-button>-->
+
+        <ion-icon (click)="removeItem(cart.product.id)" name="trash" color="danger"></ion-icon>
+        <ion-icon (click)="increaseQuantity(cart)" name="add" color="primary"></ion-icon>
         <ion-input type="number" [(ngModel)]="shoppingCart[i].quantity"></ion-input>
-        <ion-button (click)="decreaseQuantity(cart)">-</ion-button>
+        <ion-icon (click)="decreaseQuantity(cart)" name="remove" color="primary"></ion-icon>
       </div>
     </ion-item>
   </ion-list>
