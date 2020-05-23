@@ -36,7 +36,9 @@
   <ion-footer>
     <ion-list>
       <ion-item>
-        <ion-button *ngFor="let page of pages" (click)="gotoPage(page)" [color]="page==currentPage?'primary': 'secondary'" >{{page}}</ion-button>
+        <ion-buttons slot="end">
+          <ion-button *ngFor="let page of pages" (click)="gotoPage(page)" [color]="page==currentPage?'primary': 'secondary'" >{{page}}</ion-button>
+        </ion-buttons>
       </ion-item>
     </ion-list>
   </ion-footer>
