@@ -5,8 +5,34 @@
     </ion-buttons>
     <ion-title>Home</ion-title>
   </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-searchbar placeholder="Search"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ion-item *ngFor="let product of subProducts" routerLink="/products/detail/{{product.id}}">
+      <ion-thumbnail slot="start">
+        <ion-img src="{{configuration.host}}/api/guest/file/{{product.images[0]}}"></ion-img>
+      </ion-thumbnail>
+      <ion-label>
+        {{product.name}}
+        <p *ngIf="product.promotionActive"><span class="main-price">PHP {{product.price | number}}</span><span class="discounted-price">PHP {{product.promotionPrice | number}}</span></p>
+        <p *ngIf="!product.promotionActive"><span class="discounted-price">PHP {{product.price | number}}</span></p>
+      </ion-label>
+      <ion-label>
+        Available
+        <p>{{product.quantity}} kg(s)</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-footer>
+    <ion-list>
+      <ion-item>
+        <ion-button *ngFor="let page of pages" (click)="gotoPage(page)" [color]="page==currentPage?'primary': 'secondary'" >{{page}}</ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-footer>
 </ion-content>
