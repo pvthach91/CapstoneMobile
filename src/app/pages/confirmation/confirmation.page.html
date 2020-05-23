@@ -15,6 +15,15 @@
 </ion-header>
 
 <ion-content>
+  <div style="text-align: center">
+    <h2 class="text-center mb-0">Thank You For Your Order</h2>
+    <div class="text-center">
+      <p>Thanks for shopping! Your order hasn’t shipped yet but we will send you an email when it does.</p>
+      <p class="mb-5">Order ID: <ion-label color="danger">{{id}}</ion-label></p>
 
+      <ion-button routerLink="/app-tab/tabs/home">Back To Shop</ion-button>
+      <ion-button routerLink="/app-tab/tabs/order">Track Order</ion-button>
+    </div>
+  </div>
 </ion-content>
 
