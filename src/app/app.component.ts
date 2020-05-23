@@ -115,7 +115,7 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.tokenStorage.signOut();
-    this.router.navigate(['/app/login']);
+    this.router.navigate(['/login']);
   }
 
   openTutorial() {

@@ -116,7 +116,7 @@ export class TokenStorageService {
     if (this.hasAdminRole()) {
       return '/my-account/user';
     } else if (this.hasBuyerRole()) {
-      return '/home';
+      return '/app-tab/tabs/home';
     }if (this.hasFarmerRole()) {
       // return 'app/my-account/my-store';
       return '/app/tabs/schedule';
