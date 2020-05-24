@@ -43,7 +43,7 @@
       </ion-grid>
     </ion-item>
 
-    <ion-item *ngFor="let order of orders;">
+    <ion-item *ngFor="let order of orders;" routerLink="view/{{order.id}}">
       <ion-grid>
         <ion-row (focusin)="5">
           <ion-col>

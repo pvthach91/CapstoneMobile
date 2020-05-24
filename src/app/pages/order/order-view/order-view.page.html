@@ -15,5 +15,82 @@
 </ion-header>
 
 <ion-content>
+  <ion-grid fixed>
+    <ion-row class="ion-align-items-stretch">
+      <ion-col *ngIf="tokenStorage.hasPMRole() || tokenStorage.hasFarmerRole()" size="12" size-md="6">
+        <ion-card class="speaker-card">
+          <ion-card-content>
+            <ion-list>
+              <ion-item>
+                <ion-label position="stacked" color="primary">Order Reference</ion-label>
+                <ion-input value="{{order.orderId}}" readonly></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked" color="primary">Date</ion-label>
+                <ion-input value="{{order.date | date: 'yyyy/MM/dd HH:mm'}}" readonly></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked" color="primary">Order By</ion-label>
+                <ion-input value="{{order.orderBy.name}}" readonly></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked" color="primary">Email</ion-label>
+                <ion-input value="{{order.orderBy.email}}" readonly></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked" color="primary">Phone</ion-label>
+                <ion-input value="{{order.orderBy.phone}}" readonly></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked" color="primary">Address</ion-label>
+                <ion-input value="{{order.address}}" readonly></ion-input>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
 
+      <ion-col size="12" size-md="6">
+        <ion-list>
+          <ion-item *ngFor="let orderItem of order.items;">
+            <ion-thumbnail slot="start" *ngIf="displayFull(orderItem)">
+              <ion-img src="{{configuration.host}}/api/guest/file/{{orderItem.product.images[0]}}"></ion-img>
+            </ion-thumbnail>
+            <ion-label *ngIf="displayFull(orderItem)">
+              {{orderItem.product.name}}
+              <p>PHP {{orderItem.price | number}} * {{orderItem.quantity}} kg(s)</p>
+            </ion-label>
+            <ion-label *ngIf="!displayFull(orderItem)">
+              Item from other farmer
+            </ion-label>
+            <div slot="end" class="item-list-right">
+              <ion-label>PHP {{orderItem.price * orderItem.quantity | number}}</ion-label>
+            </div>
+          </ion-item>
+          <ion-item>
+            <ion-label><strong>Shipping Fee</strong></ion-label>
+            <div slot="end" class="item-list-right">
+              <ion-label>PHP <strong>{{order.shippingPrice | number}}</strong></ion-label>
+            </div>
+          </ion-item>
+          <ion-item>
+            <ion-label><strong>Grand Total</strong></ion-label>
+            <div slot="end" class="item-list-right">
+              <ion-label>PHP <strong>{{order.totalPrice | number}}</strong></ion-label>
+            </div>
+          </ion-item>
+
+          <ion-item>
+            <ion-label><strong>Order status</strong></ion-label>
+            <div slot="end" class="item-list-right">
+              <ion-label *ngIf="isProcessing || isProcessed" color="primary"> {{order.status}}</ion-label>
+              <ion-label *ngIf="isDelivering" color="success"> {{order.status}}</ion-label>
+              <ion-label *ngIf="isFinished" color="dark"> {{order.status}}</ion-label>
+              <ion-label *ngIf="isCancelled" color="danger"> {{order.status}}</ion-label>
+            </div>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
