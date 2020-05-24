@@ -119,7 +119,7 @@ export class TokenStorageService {
       return '/app-tab/tabs/home';
     }if (this.hasFarmerRole()) {
       // return 'app/my-account/my-store';
-      return '/app/tabs/schedule';
+      return '/app-tab/tabs/my-store';
     }else if (this.hasPMRole()) {
       return '/my-account/order';
     }

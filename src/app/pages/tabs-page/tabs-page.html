@@ -16,9 +16,14 @@
       <ion-label>Cart</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="order">
+    <ion-tab-button tab="order"  *ngIf="tokenStorage.hasBuyerRole()">
       <ion-icon name="checkbox"></ion-icon>
       <ion-label>Order</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="order"  *ngIf="tokenStorage.hasFarmerRole()">
+      <ion-icon name="checkbox"></ion-icon>
+      <ion-label>Transaction</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="chat">

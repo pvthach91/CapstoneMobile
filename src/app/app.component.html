@@ -9,24 +9,113 @@
       </ion-header>
 
       <ion-content>
-        <ion-list lines="none">
+        <ion-list lines="none" *ngIf="tokenStorage.hasBuyerRole()">
           <ion-list-header>
-            Navigate
+            You are buyer
           </ion-list-header>
-          <ion-menu-toggle autoHide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item [routerLink]="p.url" routerLinkActive="active" routerDirection="root" detail="false">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+<!--          <ion-menu-toggle autoHide="false" *ngFor="let p of appPages; let i = index">-->
+<!--            <ion-item [routerLink]="p.url" routerLinkActive="active" routerDirection="root" detail="false">-->
+<!--              <ion-icon slot="start" [name]="p.icon"></ion-icon>-->
+<!--              <ion-label>-->
+<!--                {{p.title}}-->
+<!--              </ion-label>-->
+<!--            </ion-item>-->
+<!--          </ion-menu-toggle>-->
+
+          <ion-menu-toggle autoHide="false">
+            <ion-item routerLink="/app-tab/tabs/home" routerLinkActive="active" routerDirection="root" detail="false">
+              <ion-icon slot="start" name="home"></ion-icon>
               <ion-label>
-                {{p.title}}
+                Home
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-menu-toggle autoHide="false" *ngIf="tokenStorage.hasBuyerRole()">
+          <ion-menu-toggle autoHide="false">
+            <ion-item routerLink="/app-tab/tabs/cart" routerLinkActive="active" routerDirection="root" detail="false">
+              <ion-icon slot="start" name="cart"></ion-icon>
+              <ion-label>
+                Shopping cart
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle autoHide="false">
+            <ion-item routerLink="/app-tab/tabs/order" routerLinkActive="active" routerDirection="root" detail="false">
+              <ion-icon slot="start" name="checkbox"></ion-icon>
+              <ion-label>
+                Order history
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle autoHide="false">
+            <ion-item routerLink="/app-tab/tabs/chat" routerLinkActive="active" routerDirection="root" detail="false">
+              <ion-icon slot="start" name="chatbubbles"></ion-icon>
+              <ion-label>
+                Chat history
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle autoHide="false" >
             <ion-item routerLink="/deliver-address" routerLinkActive="active" routerDirection="root" detail="false">
-              <ion-icon slot="start" name="map"></ion-icon>
+              <ion-icon slot="start" name="pin"></ion-icon>
               <ion-label>
                 Deliver Address
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+        <ion-list lines="none" *ngIf="tokenStorage.hasFarmerRole()">
+          <ion-list-header>
+            You are farmer
+          </ion-list-header>
+
+          <ion-menu-toggle autoHide="false">
+            <ion-item routerLink="/app-tab/tabs/my-store" routerLinkActive="active" routerDirection="root" detail="false">
+              <ion-icon slot="start" name="home"></ion-icon>
+              <ion-label>
+                My store
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+
+          <ion-menu-toggle autoHide="false">
+            <ion-item routerLink="/app-tab/tabs/order" routerLinkActive="active" routerDirection="root" detail="false">
+              <ion-icon slot="start" name="checkbox"></ion-icon>
+              <ion-label>
+                Transaction history
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle autoHide="false">
+            <ion-item routerLink="/app-tab/tabs/chat" routerLinkActive="active" routerDirection="root" detail="false">
+              <ion-icon slot="start" name="chatbubbles"></ion-icon>
+              <ion-label>
+                Chat history
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle autoHide="false" >
+            <ion-item routerLink="/farm" routerLinkActive="active" routerDirection="root" detail="false">
+<!--              <ion-icon slot="start" name="nutrition"></ion-icon>-->
+              <ion-icon slot="start" name="leaf"></ion-icon>
+              <ion-label>
+                Farm
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle autoHide="false" >
+            <ion-item routerLink="/vehicle" routerLinkActive="active" routerDirection="root" detail="false">
+              <ion-icon slot="start" name="subway"></ion-icon>
+              <ion-label>
+                Vehicle
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
