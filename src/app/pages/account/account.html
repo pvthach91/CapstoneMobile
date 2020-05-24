@@ -9,14 +9,40 @@
 
 <ion-content>
   <div  class="ion-padding-top ion-text-center">
-    <img src="https://www.gravatar.com/avatar?d=mm&s=140" alt="avatar">
-    <h2>Username</h2>
+    <img src="{{profilePhoto}}" alt="avatar">
+    <h2>{{user.name}}</h2>
 
     <ion-list inset>
-      <ion-item (click)="updatePicture()">Update Picture</ion-item>
-      <ion-item (click)="changeUsername()">Change Username</ion-item>
+      <ion-item (click)="openUploadSection()">Update Picture</ion-item>
+      <ion-item *ngIf="uploadActive">
+        <ion-label position="stacked" color="primary"></ion-label>
+        <input type="file" id="exampleInputFile" (change)="onFileChanged($event)" accept=".png,.jpg">
+        <ion-buttons>
+          <ion-button (click)="cancelUpload()" color="danger">Cancel</ion-button>
+          <ion-button (click)="uploadPhoto()" color="primary">Upload</ion-button>
+        </ion-buttons>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked" color="primary">Username</ion-label>
+        <ion-input value="{{user.username}}" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked" color="primary">Email</ion-label>
+        <ion-input value="{{user.email}}" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked" color="primary">Phone</ion-label>
+        <ion-input value="{{user.phone}}" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked" color="primary">Address</ion-label>
+        <ion-input value="{{user.address}}" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked" color="primary">Active</ion-label>
+        <ion-input value="{{user.isActive}}" readonly></ion-input>
+      </ion-item>
       <ion-item (click)="changePassword()">Change Password</ion-item>
-      <ion-item (click)="support()">Support</ion-item>
       <ion-item (click)="logout()">Logout</ion-item>
     </ion-list>
   </div>

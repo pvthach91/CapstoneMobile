@@ -1,9 +1,12 @@
-import { AfterViewInit, Component, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import {AfterViewInit, Component} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
-import { AlertController } from '@ionic/angular';
-
-import { UserData } from '../../providers/user-data';
+import {AlertController} from '@ionic/angular';
+import {User} from "../../model/user.model";
+import {AdminService} from "../../services/admin.service";
+import {FileUploadService} from "../../services/file-upload.service";
+import {TokenStorageService} from "../../auth/token-storage.service";
+import {configuration} from "../../model/configuration.model";
 
 
 @Component({
@@ -14,52 +17,29 @@ import { UserData } from '../../providers/user-data';
 export class AccountPage implements AfterViewInit {
   username: string;
 
-  constructor(
-    public alertCtrl: AlertController,
-    public router: Router,
-    public userData: UserData
-  ) { }
+  user: User = new User();
+  profilePhoto:string = 'assets/images/no-photo.jpg';
+
+  uploadActive = false;
+
+  selectedFile: File;
+
+  constructor(private adminService: AdminService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private fileUploadService: FileUploadService,
+              public alertController: AlertController,
+              private tokenStorage: TokenStorageService) { }
 
   ngAfterViewInit() {
-    this.getUsername();
-  }
-
-  updatePicture() {
-    console.log('Clicked to update picture');
-  }
-
-  // Present an alert with the current username populated
-  // clicking OK will update the username and display it
-  // clicking Cancel will close the alert and do nothing
-  async changeUsername() {
-    const alert = await this.alertCtrl.create({
-      header: 'Change Username',
-      buttons: [
-        'Cancel',
-        {
-          text: 'Ok',
-          handler: (data: any) => {
-            this.userData.setUsername(data.username);
-            this.getUsername();
-          }
-        }
-      ],
-      inputs: [
-        {
-          type: 'text',
-          name: 'username',
-          value: this.username,
-          placeholder: 'username'
-        }
-      ]
-    });
-    await alert.present();
-  }
-
-  getUsername() {
-    this.userData.getUsername().then((username) => {
-      this.username = username;
-    });
+    if (!this.tokenStorage.isLoggedIn()) {
+      this.router.navigate(['/home']);
+      return;
+    }
+    this.route.params.subscribe(
+      params => {
+        this.getCurrentUser();
+      });
   }
 
   changePassword() {
@@ -67,11 +47,85 @@ export class AccountPage implements AfterViewInit {
   }
 
   logout() {
-    this.userData.logout();
-    this.router.navigateByUrl('/app/login');
+    this.tokenStorage.signOut();
+    this.router.navigateByUrl('/login');
   }
 
-  support() {
-    this.router.navigateByUrl('/app/support');
+  async presentAlert(header: string, subHeader: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      subHeader: subHeader,
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  getCurrentUser() {
+    this.adminService.getCurrentUser().subscribe(
+      data => {
+        this.user = data;
+        if (data.photo != undefined && data.photo != null && data.photo.length > 0) {
+          this.profilePhoto = configuration.host + "/api/guest/file/" +data.photo;
+        }
+      },
+      error => {
+      }
+    );
+  }
+
+  onFileChanged(event: any): void {
+    let files = event.target.files;
+    if (files != null) {
+      this.selectedFile = files[0];
+    } else {
+      this.selectedFile = null;
+    }
+  }
+
+  updatePhoto(user: User) {
+    this.adminService.changePhoto(user).subscribe(
+      data => {
+        this.user = data;
+        if (data.photo != undefined && data.photo != null) {
+          this.profilePhoto = configuration.host + "/api/guest/file/" +data.photo;
+        }
+        this.uploadActive = false;
+      },
+      error => {
+        console.log(error);
+        this.presentAlert('Failed', '', 'Failed to register');
+      }
+    );
+  }
+
+  uploadPhoto() {
+    if (this.selectedFile != null) {
+      console.log(this.selectedFile);
+      this.fileUploadService.uploadProfilePhoto(this.selectedFile).subscribe(
+        data => {
+          if (data.success) {
+            let user = this.user;
+            user.photo = data.data;
+            this.updatePhoto(user);
+          }
+        },
+        error => {
+          this.presentAlert('Failed', '', 'Failed to upload photo');
+        }
+      );
+    } else {
+      this.presentAlert('Warning', '', 'Please select photo');
+    }
+
+  }
+
+  openUploadSection() {
+    this.uploadActive = true;
+  }
+  cancelUpload() {
+    this.uploadActive = false;
+    this.selectedFile = null;
   }
 }
