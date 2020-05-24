@@ -6,7 +6,7 @@
     <ion-title>Order</ion-title>
       <ion-buttons slot="end">
         <ion-label color="primary">Select status</ion-label>
-        <ion-select id="status" name="status" [(ngModel)]="form.status" #status="ngModel">
+        <ion-select id="status" name="status" [(ngModel)]="form.status" #status="ngModel" style="border: 1px solid">
           <ion-select-option value="all">All</ion-select-option>
           <ion-select-option value="PROCESSING">Processing</ion-select-option>
           <ion-select-option value="PROCESSED">Processed</ion-select-option>

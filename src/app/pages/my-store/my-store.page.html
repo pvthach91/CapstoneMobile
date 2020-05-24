@@ -1,14 +1,58 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+<!--    <ion-buttons slot="start">-->
+<!--      <ion-menu-button></ion-menu-button>-->
+<!--    </ion-buttons>-->
+    <ion-title>My Store</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="config">
+        <ion-icon name="settings"></ion-icon>
+        Address
+      </ion-button>
+      <ion-button routerLink="new">
+        <ion-icon  name="add"></ion-icon>
+        New
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="search(1)"> Search</ion-button>
     </ion-buttons>
 
-    <ion-title>My Store</ion-title>
-
+    <ion-select style="border: 1px solid" id="status" name="status" [(ngModel)]="form.status" #status="ngModel">
+      <ion-select-option value="">All</ion-select-option>
+      <ion-select-option value="PENDING">Pending</ion-select-option>
+      <ion-select-option value="APPROVED">Approved</ion-select-option>
+    </ion-select>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ion-item *ngFor="let product of subProducts" routerLink="detail/{{product.id}}">
+      <ion-thumbnail slot="start">
+        <ion-img src="{{configuration.host}}/api/guest/file/{{product.images[0]}}"></ion-img>
+      </ion-thumbnail>
+      <ion-label>
+        {{product.name}}
+        <p *ngIf="product.promotionActive"><span class="main-price">PHP {{product.price | number}}</span><span class="discounted-price">PHP {{product.promotionPrice | number}}</span></p>
+        <p *ngIf="!product.promotionActive"><span class="discounted-price">PHP {{product.price | number}}</span></p>
+      </ion-label>
+      <ion-label>
+        Available
+        <p>{{product.quantity - product.totalOrder}} kg(s)</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-footer>
+    <ion-list>
+      <ion-item>
+        <ion-buttons slot="end">
+          <ion-button class="pagination-button" *ngFor="let page of pages" (click)="gotoPage(page)" fill="solid" [color]="page==currentPage?'primary': 'secondary'">{{page}}</ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
+  </ion-footer>
 </ion-content>
