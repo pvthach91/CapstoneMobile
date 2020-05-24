@@ -16,7 +16,8 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let address of addresses;" routerLink="view/{{address.id}}">
+<!--    <ion-item *ngFor="let address of addresses;" routerLink="view/{{address.id}}">-->
+    <ion-item *ngFor="let address of addresses;" href="deliver-address/view/{{address.id}}">
       <ion-label>
         {{address.name}}
       </ion-label>
@@ -33,7 +34,8 @@
         <ion-label padding-left>
           <strong>Add new address? </strong>
         </ion-label>
-        <ion-button color="danger" routerLink="new">
+<!--        <ion-button color="danger" routerLink="new">-->
+        <ion-button color="danger" href="deliver-address/new">
           <ion-icon name="add"></ion-icon>
           Add
         </ion-button>
