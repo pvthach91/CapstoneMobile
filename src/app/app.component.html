@@ -20,7 +20,15 @@
                 {{p.title}}
               </ion-label>
             </ion-item>
+          </ion-menu-toggle>
 
+          <ion-menu-toggle autoHide="false" *ngIf="tokenStorage.hasBuyerRole()">
+            <ion-item routerLink="/deliver-address" routerLinkActive="active" routerDirection="root" detail="false">
+              <ion-icon slot="start" name="map"></ion-icon>
+              <ion-label>
+                Deliver Address
+              </ion-label>
+            </ion-item>
           </ion-menu-toggle>
         </ion-list>
 

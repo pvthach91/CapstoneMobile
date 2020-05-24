@@ -15,5 +15,29 @@
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item *ngFor="let address of addresses;" routerLink="view/{{address.id}}">
+      <ion-label>
+        {{address.name}}
+      </ion-label>
+      <ion-label>
+        {{address.state}}
+        <p>{{address.address}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
+  <ion-footer>
+    <ion-list>
+      <ion-item>
+        <ion-label padding-left>
+          <strong>Add new address? </strong>
+        </ion-label>
+        <ion-button color="danger" routerLink="new">
+          <ion-icon name="add"></ion-icon>
+          Add
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-footer>
 </ion-content>

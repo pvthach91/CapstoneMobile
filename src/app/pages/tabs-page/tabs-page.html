@@ -1,12 +1,17 @@
 <ion-tabs>
 
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="home">
+    <ion-tab-button tab="home" *ngIf="tokenStorage.hasBuyerRole()">
       <ion-icon name="home"></ion-icon>
       <ion-label>Home</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="cart">
+    <ion-tab-button tab="my-store" *ngIf="tokenStorage.hasFarmerRole()">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Store</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="cart" *ngIf="tokenStorage.hasBuyerRole()">
       <ion-icon name="cart"></ion-icon>
       <ion-label>Cart</ion-label>
     </ion-tab-button>
@@ -20,31 +25,6 @@
       <ion-icon name="chatbubbles"></ion-icon>
       <ion-label>Chat</ion-label>
     </ion-tab-button>
-
-    <ion-tab-button tab="my-store">
-      <ion-icon name="home"></ion-icon>
-      <ion-label>Store</ion-label>
-    </ion-tab-button>
-
-<!--    <ion-tab-button tab="schedule">-->
-<!--      <ion-icon name="calendar"></ion-icon>-->
-<!--      <ion-label>Schedule</ion-label>-->
-<!--    </ion-tab-button>-->
-
-<!--    <ion-tab-button tab="speakers">-->
-<!--      <ion-icon name="contacts"></ion-icon>-->
-<!--      <ion-label>Speakers</ion-label>-->
-<!--    </ion-tab-button>-->
-
-<!--    <ion-tab-button tab="map">-->
-<!--      <ion-icon name="map"></ion-icon>-->
-<!--      <ion-label>Map</ion-label>-->
-<!--    </ion-tab-button>-->
-
-<!--    <ion-tab-button tab="about">-->
-<!--      <ion-icon name="information-circle"></ion-icon>-->
-<!--      <ion-label>About</ion-label>-->
-<!--    </ion-tab-button>-->
   </ion-tab-bar>
 
 </ion-tabs>
