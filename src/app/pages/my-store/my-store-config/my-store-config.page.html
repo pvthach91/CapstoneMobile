@@ -15,5 +15,32 @@
 </ion-header>
 
 <ion-content>
+  <form role="form" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <ion-grid fixed>
+      <ion-row class="ion-align-items-stretch">
+        <ion-col size="12" size-md="6">
+          <ion-list>
+            <ion-item>
+              <ion-label position="stacked" color="primary">Region*</ion-label>
+              <ion-select id="state" name="state" [(ngModel)]="form.state" #state="ngModel" required>
+                <ion-select-option *ngFor="let state of states" [value]="state.name">{{state.name}}</ion-select-option>
+              </ion-select>
+            </ion-item>
 
+            <ion-item>
+              <ion-label position="stacked" color="primary">Address*</ion-label>
+              <ion-input placeholder="address" id="address" name="address" [(ngModel)]="form.address" #address="ngModel" required></ion-input>
+            </ion-item>
+          </ion-list>
+          <div id = "my-store-config-location-map" style = "height:250px;"></div>
+          <ion-list>
+            <ion-item>
+              <ion-label></ion-label>
+              <ion-button type="submit" color="primary">Submit</ion-button>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>
