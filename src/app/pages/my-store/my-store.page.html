@@ -41,8 +41,8 @@
         <p *ngIf="!product.promotionActive"><span class="discounted-price">PHP {{product.price | number}}</span></p>
       </ion-label>
       <ion-label>
-        Available
         <p>{{product.quantity - product.totalOrder}} kg(s)</p>
+        <p>{{product.status}}</p>
       </ion-label>
     </ion-item>
   </ion-list>
