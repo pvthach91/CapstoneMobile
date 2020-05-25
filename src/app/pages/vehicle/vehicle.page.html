@@ -24,47 +24,47 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-grid fixed>
-  <ion-row class="ion-align-items-stretch">
-    <ion-col size="12" size-md="6" *ngFor="let vehicle of vehicles;">
-      <ion-card class="speaker-card">
-        <ion-card-content>
-          <ion-list>
-            <ion-item>
-              <ion-label >Name:</ion-label>
-              <ion-label color="primary">{{vehicle.name}}</ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label >Price:</ion-label>
-              <ion-label color="primary"> PHP {{vehicle.pricePerKm}}</ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label >Weight carry:</ion-label>
-              <ion-label color="primary">{{vehicle.weightCarry}} kg(s)</ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-card-content>
 
-        <ion-row class="ion-no-padding ion-justify-content-center">
-          <ion-col size="4" class="ion-text-left">
-          </ion-col>
-          <ion-col size="4" class="ion-text-center">
-            <ion-button (click)="deleteVehicle(vehicle.id)" fill="clear" size="small" color="danger">
-              <ion-icon name="trash" slot="start"></ion-icon>
-              Delete
-            </ion-button>
-          </ion-col>
-          <ion-col size="4" class="ion-text-right">
-            <ion-button routerLink="view/{{vehicle.id}}" fill="clear" size="small" color="primary">
-              <ion-icon name="code-working" slot="start"></ion-icon>
-              Edit
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-</ion-grid>
 <ion-content>
+  <ion-grid fixed>
+    <ion-row class="ion-align-items-stretch">
+      <ion-col size="12" size-md="6" *ngFor="let vehicle of vehicles;">
+        <ion-card class="speaker-card">
+          <ion-card-content>
+            <ion-list>
+              <ion-item>
+                <ion-label >Name:</ion-label>
+                <ion-label color="primary">{{vehicle.name}}</ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-label >Price:</ion-label>
+                <ion-label color="primary"> PHP {{vehicle.pricePerKm}}</ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-label >Weight carry:</ion-label>
+                <ion-label color="primary">{{vehicle.weightCarry}} kg(s)</ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
 
+          <ion-row class="ion-no-padding ion-justify-content-center">
+            <ion-col size="4" class="ion-text-left">
+            </ion-col>
+            <ion-col size="4" class="ion-text-center">
+              <ion-button (click)="deleteVehicle(vehicle.id)" fill="clear" size="small" color="danger">
+                <ion-icon name="trash" slot="start"></ion-icon>
+                Delete
+              </ion-button>
+            </ion-col>
+            <ion-col size="4" class="ion-text-right">
+              <ion-button routerLink="view/{{vehicle.id}}" fill="clear" size="small" color="primary">
+                <ion-icon name="code-working" slot="start"></ion-icon>
+                Edit
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

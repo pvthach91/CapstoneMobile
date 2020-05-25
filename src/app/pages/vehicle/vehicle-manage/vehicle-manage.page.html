@@ -1,19 +1,40 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
+    <ion-back-button defaultHref="vehicle"></ion-back-button>
+  </ion-buttons>
 
     <ion-title>Vehicle detail</ion-title>
-
-    <ion-buttons slot="end">
-      <ion-button routerLink="/vehicle">
-        <ion-icon name="arrow-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <form role="form" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <ion-grid fixed>
+      <ion-row class="ion-align-items-stretch">
+        <ion-col size="12" size-md="6">
+          <ion-list>
+            <ion-item>
+              <ion-label position="stacked" color="primary">Name*</ion-label>
+              <ion-input placeholder="name" id="name" name="name" [(ngModel)]="form.name" #name="ngModel" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked" color="primary">Price per km *</ion-label>
+              <ion-input type="number" placeholder="price" id="pricePerKm" name="pricePerKm" [(ngModel)]="form.pricePerKm" #pricePerKm="ngModel" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked" color="primary">Weight can carry (kg)</ion-label>
+              <ion-input type="number" placeholder="Weight can carry" id="weightCarry" name="weightCarry" [(ngModel)]="form.weightCarry" #weightCarry="ngModel" required></ion-input>
+            </ion-item>
+          </ion-list>
+          <ion-list>
+            <ion-item>
+              <ion-label></ion-label>
+              <ion-button type="submit" color="primary">Submit</ion-button>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>
