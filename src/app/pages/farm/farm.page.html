@@ -20,12 +20,6 @@
       <ion-col  *ngFor="let farm of farms" size="12" size-md="6">
         <ion-card class="speaker-card">
           <ion-card-content>
-<!--            <ion-list>-->
-<!--              <img src="assets/images/product01.jpg" alt="avatar">-->
-<!--              <ion-item>-->
-<!--                <ion-label color="primary">100 x 200 (m2)</ion-label>-->
-<!--              </ion-item>-->
-<!--            </ion-list>-->
             <div class="ion-text-center">
               <img src="{{configuration.host}}/api/guest/file/{{farm.images[0]}}" alt="avatar">
               <ion-label color="primary">{{farm.state}} * {{farm.address}} (m2)</ion-label>
@@ -36,7 +30,7 @@
             <ion-col size="4" class="ion-text-left">
             </ion-col>
             <ion-col size="4" class="ion-text-center">
-              <ion-button fill="clear" size="small" color="danger">
+              <ion-button (click)="deleteFarm(farm.id)" fill="clear" size="small" color="danger">
                 <ion-icon name="trash" slot="start"></ion-icon>
                 Delete
               </ion-button>

@@ -1,19 +1,43 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button defaultHref="vehicle"></ion-back-button>
     </ion-buttons>
 
     <ion-title>Create new farm</ion-title>
-
-    <ion-buttons slot="end">
-      <ion-button routerLink="/farm">
-        <ion-icon name="arrow-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <form role="form" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <ion-grid fixed>
+      <ion-row class="ion-align-items-stretch">
+        <ion-col size="12" size-md="6">
+          <ion-row *ngIf="!displayOldImages" class="ion-no-padding ion-justify-content-center">
+            <ion-col *ngFor="let url of displayImagesMap | keyvalue" size="4" class="ion-text-left">
+              <ion-img [src]="url.value"></ion-img>
+            </ion-col>
+          </ion-row>
+          <ion-list>
+            <ion-item>
+              <ion-label position="stacked" color="primary">Photo*</ion-label>
+              <input type="file" class="form-control" id="exampleInputFile" multiple="multiple" (change)="onFileChanged($event)" accept=".png,.jpg">
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked" color="primary">Length of farm(m)*</ion-label>
+              <ion-input placeholder="length" id="state" name="state" [(ngModel)]="form.state" #state="ngModel" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked" color="primary">Width of farm()*</ion-label>
+              <ion-input placeholder="width" id="address" name="address" [(ngModel)]="form.address" #address="ngModel" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label></ion-label>
+              <ion-button type="submit" color="primary">Submit</ion-button>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>

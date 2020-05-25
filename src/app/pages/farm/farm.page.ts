@@ -55,4 +55,39 @@ export class FarmPage implements OnInit {
     );
   }
 
+  async deleteFarm(id: number) {
+    const alert = await this.alertController.create({
+      header: 'Confirm!',
+      message: 'Are you sure to delete the farm?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            // console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ok',
+          handler: () => {
+            this.farmService.deleteFarm(id).subscribe(
+              data => {
+                if (data.success) {
+                  this.search();
+                } else {
+                  this.presentAlert('Failed', '', data.message);
+                }
+              },
+              error => {
+                this.presentAlert('Failed', '', 'Failed to deactivate the user');
+              }
+            );
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
 }
