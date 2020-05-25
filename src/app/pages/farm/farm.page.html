@@ -7,13 +7,49 @@
     <ion-title>Farm</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button routerLink="/app-tab/tabs/my-store">
-        <ion-icon name="arrow-back"></ion-icon>
+      <ion-button routerLink="new">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-grid fixed>
+    <ion-row class="ion-align-items-stretch">
+      <ion-col  *ngFor="let farm of farms" size="12" size-md="6">
+        <ion-card class="speaker-card">
+          <ion-card-content>
+<!--            <ion-list>-->
+<!--              <img src="assets/images/product01.jpg" alt="avatar">-->
+<!--              <ion-item>-->
+<!--                <ion-label color="primary">100 x 200 (m2)</ion-label>-->
+<!--              </ion-item>-->
+<!--            </ion-list>-->
+            <div class="ion-text-center">
+              <img src="{{configuration.host}}/api/guest/file/{{farm.images[0]}}" alt="avatar">
+              <ion-label color="primary">{{farm.state}} * {{farm.address}} (m2)</ion-label>
+            </div>
+          </ion-card-content>
 
+          <ion-row class="ion-no-padding ion-justify-content-center">
+            <ion-col size="4" class="ion-text-left">
+            </ion-col>
+            <ion-col size="4" class="ion-text-center">
+              <ion-button fill="clear" size="small" color="danger">
+                <ion-icon name="trash" slot="start"></ion-icon>
+                Delete
+              </ion-button>
+            </ion-col>
+            <ion-col size="4" class="ion-text-right">
+              <ion-button routerLink="view/{{farm.id}}"fill="clear" size="small" color="primary">
+                <ion-icon name="code-working" slot="start"></ion-icon>
+                Edit
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
