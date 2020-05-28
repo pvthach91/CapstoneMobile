@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button  defaultHref="app-tab/tabs/my-store/detail/{{id}}"></ion-back-button>
     </ion-buttons>
 
     <ion-title>Rate</ion-title>
@@ -12,7 +12,7 @@
   <ion-list>
     <ion-item>
       <ion-label>
-        {{averageRates}} <span>(Overall)</span>
+        {{averageRates}} Star <span>(Overall)</span>
         <p>Based on {{rates.length}} rating(s)</p>
       </ion-label>
     </ion-item>

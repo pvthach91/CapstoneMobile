@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button  defaultHref="app-tab/tabs/my-store/detail/{{id}}"></ion-back-button>
     </ion-buttons>
 
     <ion-title>Comments</ion-title>
@@ -9,7 +9,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+    <ion-item *ngIf="comments.length==0">
+      <ion-label>There's no comment for this products</ion-label>
+    </ion-item>
+  <ion-list *ngIf="comments.length>0">
     <ion-item *ngFor="let comment of comments">
       <ion-label>
         {{comment.commentedBy.name}} <small>(at {{comment.dateCreated | date: 'yyyy/MM/dd HH:mm' }})</small>
@@ -17,14 +20,14 @@
       </ion-label>
     </ion-item>
   </ion-list>
-  <ion-footer>
-    <ion-list>
-      <ion-item>
+</ion-content>
+<ion-footer>
+  <ion-list>
+    <ion-item>
       <ion-input placeholder="Enter your comment" [(ngModel)]="myComment"></ion-input>
       <button clear item-right fill="clear" (click)="commentProduct()">
         <ion-icon style="font-size: 20px" name="send" slot="start" color="primary"></ion-icon>
       </button>
-      </ion-item>
-    </ion-list>
-  </ion-footer>
-</ion-content>
+    </ion-item>
+  </ion-list>
+</ion-footer>
