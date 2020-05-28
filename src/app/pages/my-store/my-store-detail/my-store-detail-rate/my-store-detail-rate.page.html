@@ -9,5 +9,73 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ion-item>
+      <ion-label>
+        {{averageRates}} <span>(Overall)</span>
+        <p>Based on {{rates.length}} rating(s)</p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <span>5 Star: </span>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <span>({{fiveStar}})</span>
+      </ion-label>
+      <ion-label>
+        <span>4 Star: </span>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <span>({{fourStar}})</span>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <span>3 Star: </span>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <span>({{threeStar}})</span>
+      </ion-label>
+      <ion-label>
+        <span>2 Star: </span>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <span>({{twoStar}})</span>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <span>1 Star: </span>
+        <ion-icon name="star" color="primary"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <span>({{oneStar}})</span>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngFor="let rate of rates">
+      <ion-label>
+        <h3>{{rate.ratedBy.name}} ({{rate.star}} star) <small>({{rate.dateCreated | date: 'yyyy/MM/dd HH:mm'}})</small></h3>
+        <ion-icon name="star" [color]="rate.star >= 1? 'primary' : ''"></ion-icon>
+        <ion-icon name="star" [color]="rate.star >= 2? 'primary' : ''"></ion-icon>
+        <ion-icon name="star" [color]="rate.star >= 3? 'primary' : ''"></ion-icon>
+        <ion-icon name="star" [color]="rate.star >= 4? 'primary' : ''"></ion-icon>
+        <ion-icon name="star" [color]="rate.star >= 5? 'primary' : ''"></ion-icon>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
