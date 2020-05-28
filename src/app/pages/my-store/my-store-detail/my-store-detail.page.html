@@ -88,13 +88,13 @@
 
           <ion-row class="ion-no-padding ion-justify-content-center">
             <ion-col size="6" class="ion-text-center">
-              <ion-button routerLink="comment" fill="clear" size="small" color="danger">
+              <ion-button routerLink="comment/{{id}}" fill="clear" size="small" color="primary">
                 <ion-icon name="chatboxes" slot="start"></ion-icon>
                 View Comment
               </ion-button>
             </ion-col>
             <ion-col size="6" class="ion-text-right">
-              <ion-button fill="clear" size="small" color="primary">
+              <ion-button routerLink="rate/{{id}}" fill="clear" size="small" color="primary">
                 <ion-icon name="star" slot="start"></ion-icon>
                 View Rating
               </ion-button>

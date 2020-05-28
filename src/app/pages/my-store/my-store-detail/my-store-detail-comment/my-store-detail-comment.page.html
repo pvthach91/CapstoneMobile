@@ -9,5 +9,22 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ion-item *ngFor="let comment of comments">
+      <ion-label>
+        {{comment.commentedBy.name}} <small>(at {{comment.dateCreated | date: 'yyyy/MM/dd HH:mm' }})</small>
+        <p>{{comment.content}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-footer>
+    <ion-list>
+      <ion-item>
+      <ion-input placeholder="Enter your comment" [(ngModel)]="myComment"></ion-input>
+      <button clear item-right fill="clear" (click)="commentProduct()">
+        <ion-icon style="font-size: 20px" name="send" slot="start" color="primary"></ion-icon>
+      </button>
+      </ion-item>
+    </ion-list>
+  </ion-footer>
 </ion-content>
