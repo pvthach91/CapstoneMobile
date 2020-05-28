@@ -1,19 +1,93 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button defaultHref="app-tab/tabs/my-store"></ion-back-button>
     </ion-buttons>
 
     <ion-title>New product</ion-title>
-
-    <ion-buttons slot="end">
-      <ion-button routerLink="/app-tab/tabs/my-store">
-        <ion-icon name="arrow-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <form role="form" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <ion-grid fixed>
+      <ion-row class="ion-align-items-stretch">
+        <ion-col size="12" size-md="6">
+          <ion-row *ngIf="displayOldImages" class="ion-no-padding ion-justify-content-center">
+            <ion-col>
+              <div class="ion-text-center">
+                <img class="width-100" src="{{savedCurrentPhoto}}" alt="avatar">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="displayOldImages" class="ion-no-padding ion-justify-content-center">
+            <ion-col *ngFor="let url of oldImagesMap | keyvalue" size="4" class="ion-text-left">
+              <ion-img class="slide-item-height" (click)="changePhotoView(url.value)" src="{{configuration.host}}/api/guest/file/{{url.value}}"></ion-img>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="!displayOldImages" class="ion-no-padding ion-justify-content-center">
+            <ion-col *ngFor="let url of displayImagesMap | keyvalue" size="4" class="ion-text-left">
+              <ion-img [src]="url.value"></ion-img>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-no-padding ion-justify-content-center">
+            <ion-col class="ion-text-left">
+              <ion-item>
+                <ion-label position="stacked" color="primary">Photo*</ion-label>
+                <input type="file" class="form-control" id="exampleInputFile" multiple="multiple" (change)="onFileChanged($event)" accept=".png,.jpg">
+              </ion-item>
+<!--              <ion-item>-->
+<!--                <ion-button [disabled]="displayOldImages" (click)="cancelUpload()" color="primary">Cancel Upload</ion-button>-->
+<!--              </ion-item>-->
+            </ion-col>
+          </ion-row>
+          <ion-list>
+            <ion-item>
+              <ion-label position="stacked" color="primary">Product name*</ion-label>
+              <ion-input placeholder="product name" id="name" name="name" [(ngModel)]="form.name" #name="ngModel" required minlength="3"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked" color="primary">Category*</ion-label>
+              <ion-select id="category" name="category" [(ngModel)]="form.category" #category="ngModel" required>
+                <ion-select-option value="Poultry">Poultry</ion-select-option>
+                <ion-select-option value="Livestock">Livestock</ion-select-option>
+                <ion-select-option value="Aquatic">Aquatic</ion-select-option>
+                <ion-select-option value="Vegetable">Vegetable</ion-select-option>
+                <ion-select-option value="Fruit">Fruit</ion-select-option>
+                <ion-select-option value="Other">Other</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked" color="primary">Price*</ion-label>
+              <ion-input placeholder="price" id="price" name="price" [(ngModel)]="form.price" #price="ngModel" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked" color="primary">In stock (kg)*</ion-label>
+              <ion-input type="number" placeholder="quantity" id="quantity" name="quantity" [(ngModel)]="form.quantity" #quantity="ngModel" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked" color="primary">Description*</ion-label>
+              <ion-textarea rows="3" placeholder="description" id="description" name="description" [(ngModel)]="form.description" #description="ngModel" required></ion-textarea>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked" color="primary">Promotion*</ion-label>
+              <ion-select id="promotionActive" name="promotionActive" [(ngModel)]="form.promotionActive" #promotionActive="ngModel" required (ionChange)="changePromotion($event.target.value)">
+                <ion-select-option value=true>Apply Promotion</ion-select-option>
+                <ion-select-option value=false>Dont Apply Promotion</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked" color="primary">Promotion Price*</ion-label>
+              <ion-input  [disabled]="!promotionSectionActive" type="number" placeholder="promotion price" id="promotionPrice" name="promotionPrice" [(ngModel)]="form.promotionPrice" #promotionPrice="ngModel" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label></ion-label>
+              <ion-button type="submit" color="primary">Submit</ion-button>
+            </ion-item>
+          </ion-list>
 
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>
