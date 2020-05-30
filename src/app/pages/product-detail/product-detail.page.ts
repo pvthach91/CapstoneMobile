@@ -11,7 +11,7 @@ import {RateService} from "../../services/rate.service";
 import {FarmerService} from "../../services/farmer.service";
 import {CommentService} from "../../services/comment.service";
 import {CartStorageService} from "../../services/cart-storage.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Comment} from "../../model/comment.model";
 
 declare const google: any;
@@ -22,6 +22,8 @@ declare const google: any;
   styleUrls: ['./product-detail.page.scss'],
 })
 export class ProductDetailPage implements OnInit {
+
+  linkId = 0;
 
   quantity: number = 1;
 
@@ -71,6 +73,7 @@ export class ProductDetailPage implements OnInit {
               private farmService: FarmerService,
               public commentService: CommentService,
               private cartStorage: CartStorageService,
+              private router: Router,
               private route: ActivatedRoute,) { }
 
   ngOnInit() {
@@ -150,6 +153,7 @@ export class ProductDetailPage implements OnInit {
         if (data.success) {
           this.productDetail = data.data;
           this.dto = this.productDetail.dto;
+          this.linkId = this.dto.user.id;
           this.lat = this.dto.user.latitude;
           this.lng = this.dto.user.longitude;
           // this.initMap();
@@ -320,6 +324,10 @@ export class ProductDetailPage implements OnInit {
   changeAboutFarmerFarm(farmId: number) {
     this.aboutAuthorCurrentFarm = this.farmMap.get(farmId);
     this.aboutAuthorCurrentFarmPhoto = configuration.host + '/api/guest/file/' + this.aboutAuthorCurrentFarm.images[0];
+  }
+
+  chatFarmer() {
+    this.router.navigateByUrl('app-tab/tabs/chat/detail/' + this.linkId);
   }
 
 }
