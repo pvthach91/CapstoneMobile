@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button  defaultHref="products/detail/{{id}}"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Farm Gallery</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row class="ion-align-items-stretch">
+      <ion-col size="6" *ngFor="let farm of farmMap | keyvalue;">
+        <ion-item (click)="changeAboutFarmerFarm(farm.key)">
+          <ion-button>{{farm.value.state}} * {{farm.value.address}} (m2)</ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-stretch">
+      <ion-col>
+        <ion-slides pager="true" #farmSlider>
+          <ion-slide *ngFor="let url of aboutAuthorCurrentFarm.images">
+            <ion-img src="{{configuration.host}}/api/guest/file/{{url}}"></ion-img>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

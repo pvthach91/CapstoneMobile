@@ -19,6 +19,10 @@ const routes: Routes = [
   {
     path: 'location/:id',
     loadChildren: () => import('./product-detail-location/product-detail-location.module').then( m => m.ProductDetailLocationPageModule)
+  },
+  {
+    path: 'farm/:id',
+    loadChildren: () => import('./product-detail-farm/product-detail-farm.module').then( m => m.ProductDetailFarmPageModule)
   }
 ];
 
