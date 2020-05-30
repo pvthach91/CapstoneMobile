@@ -7,6 +7,7 @@ import {AlertController, IonContent} from "@ionic/angular";
 import {Chat} from "../../../model/chat.model";
 import {TokenStorageService} from "../../../auth/token-storage.service";
 import {ChatRequest} from "../../../model/post/chat-request.model";
+import {interval} from "rxjs";
 
 @Component({
   selector: 'app-chat-detail',
@@ -35,6 +36,10 @@ export class ChatDetailPage implements OnInit {
       } else {
         // Load detail page
         this.getChats();
+
+        interval(5000).subscribe(x => {
+          this.getChats();
+        });
       }
     });
   }
