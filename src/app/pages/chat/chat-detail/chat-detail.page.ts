@@ -65,7 +65,6 @@ export class ChatDetailPage implements OnInit {
           // this.content.scrollToBottom(1500);
           var objDiv = document.getElementById("main-content");
           objDiv.scrollTop = objDiv.scrollHeight;
-          console.log('haga');
         } else {
           this.presentAlert('Error', '', 'Failed to gt message');
         }
