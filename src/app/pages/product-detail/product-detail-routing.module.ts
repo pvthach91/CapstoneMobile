@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: ProductDetailPage
+  },
+  {
+    path: 'comment/:id',
+    loadChildren: () => import('./product-detail-comment/product-detail-comment.module').then( m => m.ProductDetailCommentPageModule)
   }
 ];
 
