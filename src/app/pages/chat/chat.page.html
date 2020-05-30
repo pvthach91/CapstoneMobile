@@ -9,21 +9,22 @@
 
 <ion-content>
   <ion-list>
-    <ion-item routerLink="detail/1">
+    <ion-item routerLink="detail/{{u.id}}" *ngFor="let u of users">
       <ion-avatar slot="start">
-        <ion-img src="assets/images/owner.png"></ion-img>
+        <ion-img *ngIf="u.photo!= null && u.photo.length>0" src="{{configuration.host}}/api/guest/file/{{u.photo}}"></ion-img>
+        <ion-img *ngIf="u.photo== null || u.photo.length==0" src="assets/images/no_image_available.png"></ion-img>
       </ion-avatar>
       <ion-label>
-        Pham Van Thach
+        {{u.name}}
       </ion-label>
     </ion-item>
-    <ion-item (click)="test()">
-      <ion-avatar slot="start">
-        <ion-img src="assets/images/owner.png"></ion-img>
-      </ion-avatar>
-      <ion-label>
-        Fatima
-      </ion-label>
-    </ion-item>
+<!--    <ion-item (click)="test()">-->
+<!--      <ion-avatar slot="start">-->
+<!--        <ion-img src="assets/images/owner.png"></ion-img>-->
+<!--      </ion-avatar>-->
+<!--      <ion-label>-->
+<!--        Fatima-->
+<!--      </ion-label>-->
+<!--    </ion-item>-->
   </ion-list>
 </ion-content>

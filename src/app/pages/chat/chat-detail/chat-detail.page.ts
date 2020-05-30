@@ -37,28 +37,6 @@ export class ChatDetailPage implements OnInit {
         this.getChats();
       }
     });
-    // let m1 = new MessageChat('assets/images/owner.png', 'right', 'Hi test', 'Thach Pham', '2020/12/12');
-    // let m2 = new MessageChat('assets/images/owner.png', 'left', 'Hi test rep', 'Fatima', '2020/12/12');
-    // let m3 = new MessageChat('assets/images/owner.png', 'right', 'Hi test', 'Thach Pham', '2020/12/12');
-    // let m4 = new MessageChat('assets/images/owner.png', 'right', 'Hi test', 'Thach Pham', '2020/12/12');
-    // let m5 = new MessageChat('assets/images/owner.png', 'right', 'Hi test', 'Thach Pham', '2020/12/12');
-    // let m6 = new MessageChat('assets/images/owner.png', 'right', 'Hi test', 'Thach Pham', '2020/12/12');
-    // let m7 = new MessageChat('assets/images/owner.png', 'right', 'Hi test', 'Thach Pham', '2020/12/12');
-    // let m8 = new MessageChat('assets/images/owner.png', 'right', 'Hi test', 'Thach Pham', '2020/12/12');
-
-
-    // let m1 = {'img':'assets/images/owner.png', 'position':'right', 'content':'Hi test', 'senderName':'Thach Pham', 'time':'2020/12/12'};
-    // let m2 = {'img':'assets/images/owner.png', 'position':'left', 'content':'Hi test rep please sell me this product', 'senderName':'Fatima', 'time':'2020/12/12'};
-    // let m3 = {'img':'assets/images/owner.png', 'position':'right', 'content':'Hi test hahaha', 'senderName':'Thach Pham', 'time':'2020/12/12'};
-
-    // this.messages.push(m1);
-    // this.messages.push(m2);
-    // this.messages.push(m3);
-    // this.messages.push(m4);
-    // this.messages.push(m5);
-    // this.messages.push(m6);
-    // this.messages.push(m7);
-    // this.messages.push(m8);
   }
 
   async presentAlert(header: string, subHeader: string, message: string) {
@@ -109,6 +87,7 @@ export class ChatDetailPage implements OnInit {
           img = configuration.host + '/api/guest/file/' + chat.fromUser.photo;
         }
         position = 'right';
+        sender = 'You';
       } else {
         if (chat.toUser.photo == null || chat.toUser.photo.length ==0){
           img = 'assets/images/no_image_available.png';
