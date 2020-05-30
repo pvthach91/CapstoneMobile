@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'comment/:id',
     loadChildren: () => import('./product-detail-comment/product-detail-comment.module').then( m => m.ProductDetailCommentPageModule)
+  },
+  {
+    path: 'rate/:id',
+    loadChildren: () => import('./product-detail-rate/product-detail-rate.module').then( m => m.ProductDetailRatePageModule)
   }
 ];
 
