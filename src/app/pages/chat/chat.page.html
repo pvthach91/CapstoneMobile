@@ -9,22 +9,17 @@
 
 <ion-content>
   <ion-list>
-    <ion-item routerLink="detail/{{u.id}}" *ngFor="let u of users">
+    <ion-item routerLink="detail/{{cc.user.id}}" *ngFor="let cc of contactChats">
       <ion-avatar slot="start">
-        <ion-img *ngIf="u.photo!= null && u.photo.length>0" src="{{configuration.host}}/api/guest/file/{{u.photo}}"></ion-img>
-        <ion-img *ngIf="u.photo== null || u.photo.length==0" src="assets/images/no_image_available.png"></ion-img>
+        <ion-img *ngIf="cc.user.photo!= null && cc.user.photo.length>0" src="{{configuration.host}}/api/guest/file/{{cc.user.photo}}"></ion-img>
+        <ion-img *ngIf="cc.user.photo== null || cc.user.photo.length==0" src="assets/images/no_image_available.png"></ion-img>
       </ion-avatar>
-      <ion-label>
-        {{u.name}}
-      </ion-label>
+      <ion-label>{{cc.user.name}}</ion-label>
+      <ion-buttons slot="end">
+        <ion-label>
+          <small>{{cc.lastUpdated | date: 'yyyy/MM/dd HH:mm'}}</small>
+        </ion-label>
+      </ion-buttons>
     </ion-item>
-<!--    <ion-item (click)="test()">-->
-<!--      <ion-avatar slot="start">-->
-<!--        <ion-img src="assets/images/owner.png"></ion-img>-->
-<!--      </ion-avatar>-->
-<!--      <ion-label>-->
-<!--        Fatima-->
-<!--      </ion-label>-->
-<!--    </ion-item>-->
   </ion-list>
 </ion-content>

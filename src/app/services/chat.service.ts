@@ -6,6 +6,7 @@ import {Chat} from "../model/chat.model";
 import {User} from "../model/user.model";
 import {ChatRequest} from "../model/post/chat-request.model";
 import {Comment} from "../model/comment.model";
+import {ContactChat} from "../model/contact-chat.model";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -28,6 +29,11 @@ export class ChatService {
   getChatContact(): Observable<Array<User>> {
     const url = configuration.host + '/api/chats';
     return this.http.get<Array<User>>(url);
+  }
+
+  getChatContacts(): Observable<Array<ContactChat>> {
+    const url = configuration.host + '/api/chats';
+    return this.http.get<Array<ContactChat>>(url);
   }
 
   addChat(chatRequest: ChatRequest): Observable<number> {

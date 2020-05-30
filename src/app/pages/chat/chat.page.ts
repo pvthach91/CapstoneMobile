@@ -4,6 +4,7 @@ import {ChatService} from "../../services/chat.service";
 import {User} from "../../model/user.model";
 import {configuration} from "../../model/configuration.model";
 import {ActivatedRoute} from "@angular/router";
+import {ContactChat} from "../../model/contact-chat.model";
 
 @Component({
   selector: 'app-chat',
@@ -13,7 +14,8 @@ import {ActivatedRoute} from "@angular/router";
 export class ChatPage implements OnInit {
   loading;
 
-  users:Array<User> = new Array<User>();
+  // users:Array<User> = new Array<User>();
+  contactChats:Array<ContactChat> = new Array<ContactChat>();
 
   configuration = configuration;
 
@@ -40,10 +42,11 @@ export class ChatPage implements OnInit {
   }
 
   getContacts() {
-    this.chatService.getChatContact().subscribe(
+    this.chatService.getChatContacts().subscribe(
       data => {
         if (data != null) {
-          this.users = data;
+          // this.users = data;
+          this.contactChats = data;
         } else {
           this.presentAlert('Error', '', 'Failed to gt message');
         }
