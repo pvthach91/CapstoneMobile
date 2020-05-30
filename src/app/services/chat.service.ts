@@ -5,6 +5,7 @@ import {configuration} from "../model/configuration.model";
 import {Chat} from "../model/chat.model";
 import {User} from "../model/user.model";
 import {ChatRequest} from "../model/post/chat-request.model";
+import {Comment} from "../model/comment.model";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
