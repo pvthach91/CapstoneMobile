@@ -13,15 +13,6 @@
           <ion-list-header>
             You are buyer
           </ion-list-header>
-<!--          <ion-menu-toggle autoHide="false" *ngFor="let p of appPages; let i = index">-->
-<!--            <ion-item [routerLink]="p.url" routerLinkActive="active" routerDirection="root" detail="false">-->
-<!--              <ion-icon slot="start" [name]="p.icon"></ion-icon>-->
-<!--              <ion-label>-->
-<!--                {{p.title}}-->
-<!--              </ion-label>-->
-<!--            </ion-item>-->
-<!--          </ion-menu-toggle>-->
-
           <ion-menu-toggle autoHide="false">
             <ion-item routerLink="/app-tab/tabs/home" routerLinkActive="active" routerDirection="root" detail="false">
               <ion-icon slot="start" name="home"></ion-icon>
@@ -126,7 +117,7 @@
             Account
           </ion-list-header>
 
-          <ion-menu-toggle autoHide="false">
+          <ion-menu-toggle autoHide="false" *ngIf="tokenStorage.isLoggedIn()">
             <ion-item routerLink="/account" routerLinkActive="active" routerDirection="root" detail="false">
               <ion-icon slot="start" name="person"></ion-icon>
               <ion-label>
@@ -144,11 +135,20 @@
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-menu-toggle autoHide="false">
+          <ion-menu-toggle autoHide="false" *ngIf="tokenStorage.isLoggedIn()">
             <ion-item button (click)="logout()" detail="false">
               <ion-icon slot="start" name="log-out"></ion-icon>
               <ion-label>
                 Logout
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle autoHide="false" *ngIf="!tokenStorage.isLoggedIn()">
+            <ion-item button detail="false" routerLink="/login">
+              <ion-icon slot="start" name="log-in"></ion-icon>
+              <ion-label>
+                Login
               </ion-label>
             </ion-item>
           </ion-menu-toggle>

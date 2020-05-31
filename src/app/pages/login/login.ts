@@ -1,10 +1,6 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-
-import { UserData } from '../../providers/user-data';
-
-import { UserOptions } from '../../interfaces/user-options';
+import {Component, OnInit} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
 import {AuthService} from "../../auth/auth.service";
 import {TokenStorageService} from "../../auth/token-storage.service";
 import {AuthLoginInfo} from "../../auth/login-info";
@@ -13,14 +9,12 @@ import {ConfigurationStorage} from "../../services/configuration-storage.service
 import {ConfigurationSingletonService} from "../../services/configuration-singleton.service";
 
 
-
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
   styleUrls: ['./login.scss'],
 })
 export class LoginPage implements OnInit{
-  // login: UserOptions = { username: '', password: '' };
   submitted = false;
 
   form: any = {};
@@ -30,7 +24,6 @@ export class LoginPage implements OnInit{
     private authService: AuthService,
     public alertController: AlertController,
     private tokenStorage: TokenStorageService,
-    // public userData: UserData,
     private configurationSingletonService: ConfigurationSingletonService,
     private configurationStorage: ConfigurationStorage,
     public router: Router
@@ -38,7 +31,8 @@ export class LoginPage implements OnInit{
 
   ngOnInit() {
     if (this.tokenStorage.isLoggedIn()) {
-      this.router.navigateByUrl('/app-tab/tabs/schedule');
+      let defaultPage = this.tokenStorage.getDefaultPage();
+      this.router.navigate([defaultPage]);
     }
   }
 

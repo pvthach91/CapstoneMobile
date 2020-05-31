@@ -9,37 +9,124 @@
 
 <ion-content>
 
-  <div class="signup-logo">
-    <img src="assets/img/appicon.svg" alt="Ionic Logo">
-  </div>
+<!--  <div class="signup-logo">-->
+<!--    <img src="assets/images/logo.png" alt="Ionic Logo">-->
+<!--  </div>-->
 
-  <form #signupForm="ngForm" novalidate>
+  <form  role="form" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <ion-grid>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-label>You are most likely to be</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <ion-button (click)="chooseFarmer()" expand="block" [fill]="farmerActive()?'solid': 'outline'">Farmer</ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button (click)="chooseBuyer()" color="secondary" expand="block" [fill]="farmerActive()?'outline': 'solid'">Buyer</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
     <ion-list lines="none">
       <ion-item>
         <ion-label position="stacked" color="primary">Username</ion-label>
-        <ion-input [(ngModel)]="signup.username" name="username" type="text" #username="ngModel" required>
+        <ion-input placeholder="Username" id="username" name="username" [(ngModel)]="form.username" #username="ngModel" required minlength="3">
         </ion-input>
+
+        <ion-text color="danger" *ngIf="f.submitted && username.invalid">
+          <p *ngIf="username.errors.required">
+            Username is required
+          </p>
+          <p *ngIf="username.errors.minlength">
+            Username must be at least 3 characters
+          </p>
+        </ion-text>
       </ion-item>
-      <ion-text color="danger">
-        <p [hidden]="username.valid || submitted == false" class="ion-padding-start">
-          Username is required
-        </p>
-      </ion-text>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Name</ion-label>
+        <ion-input placeholder="Full Name" id="name" name="name" [(ngModel)]="form.name" #name="ngModel" required minlength="3">
+        </ion-input>
+
+        <ion-text color="danger" *ngIf="f.submitted && name.invalid">
+          <p *ngIf="name.errors.required" class="ion-padding-start">
+            Name is required
+          </p>
+          <p *ngIf="name.errors.minlength" class="ion-padding-start">
+            Name must be at least 3 characters
+          </p>
+        </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Email</ion-label>
+        <ion-input type="email" placeholder="Email" id="email" name="email" [(ngModel)]="form.email" #email="ngModel" required email>
+        </ion-input>
+
+        <ion-text color="danger" *ngIf="f.submitted && email.invalid">
+          <p *ngIf="email.errors.required" class="ion-padding-start">
+            Email is required
+          </p>
+          <p *ngIf="email.errors.email" class="ion-padding-start">
+            Email must be a valid email address
+          </p>
+        </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Phone</ion-label>
+        <ion-input type="text" placeholder="Phone" id="phone" name="phone" [(ngModel)]="form.phone" #phone="ngModel" required minlength="10">
+        </ion-input>
+
+        <ion-text color="danger" *ngIf="f.submitted && phone.invalid">
+          <p *ngIf="phone.errors.required" class="ion-padding-start">
+            Phone is required
+          </p>
+          <p *ngIf="phone.errors.minlength" class="ion-padding-start">
+            Phone must be at least 10 characters
+          </p>
+        </ion-text>
+      </ion-item>
 
       <ion-item>
         <ion-label position="stacked" color="primary">Password</ion-label>
-        <ion-input [(ngModel)]="signup.password" name="password" type="password" #password="ngModel" required>
+        <ion-input type="password" placeholder="Password" id="password" name="password" [(ngModel)]="form.password" #password="ngModel" required minlength="3">
         </ion-input>
+
+        <ion-text color="danger" *ngIf="f.submitted && password.invalid">
+          <p *ngIf="password.errors.required" class="ion-padding-start">
+            Password is required
+          </p>
+          <p *ngIf="password.errors.minlength" class="ion-padding-start">
+            Password must be at least 3 numbers
+          </p>
+        </ion-text>
       </ion-item>
-      <ion-text color="danger">
-        <p [hidden]="password.valid || submitted == false" class="ion-padding-start">
-          Password is required
-        </p>
-      </ion-text>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Confirm Password</ion-label>
+        <ion-input type="password" placeholder="Confirm Password" id="cpassword" name="cpassword" [(ngModel)]="form.cpassword" #cpassword="ngModel" required minlength="3">
+        </ion-input>
+
+        <ion-text color="danger" *ngIf="f.submitted && cpassword.invalid">
+          <p *ngIf="cpassword.errors.required" class="ion-padding-start">
+            Confirm password is required
+          </p>
+          <p *ngIf="cpassword.errors.minlength" class="ion-padding-start">
+            Confirm password must be at least 3 numbers
+          </p>
+          <p *ngIf="f.submitted && !passwordMatched" class="ion-padding-start">
+            Not matched
+          </p>
+        </ion-text>
+      </ion-item>
     </ion-list>
 
     <div class="ion-padding">
-      <ion-button (click)="onSignup(signupForm)" type="submit" expand="block">Create</ion-button>
+      <ion-button type="submit" expand="block">Create</ion-button>
     </div>
   </form>
 

@@ -1,11 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-
-import { UserData } from '../../providers/user-data';
-
-import { UserOptions } from '../../interfaces/user-options';
-
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {SignUpInfo} from "../../auth/signup-info";
+import {AuthService} from "../../auth/auth.service";
+import {AlertController} from "@ionic/angular";
 
 
 @Component({
@@ -14,20 +11,72 @@ import { UserOptions } from '../../interfaces/user-options';
   styleUrls: ['./signup.scss'],
 })
 export class SignupPage {
-  signup: UserOptions = { username: '', password: '' };
-  submitted = false;
+  form: any = {};
+  signupInfo: SignUpInfo;
+  passwordMatched :boolean = false;
 
-  constructor(
-    public router: Router,
-    public userData: UserData
-  ) {}
+  role = 2;
 
-  onSignup(form: NgForm) {
-    this.submitted = true;
+  constructor(private authService: AuthService,
+              private route: Router,
+              public alertController: AlertController) { }
 
-    if (form.valid) {
-      this.userData.signup(this.signup.username);
-      this.router.navigateByUrl('/app-tab/tabs/schedule');
+  ngOnInit() {
+  }
+
+  chooseFarmer() {
+    this.role = 2;
+  }
+
+  chooseBuyer() {
+    this.role = 3;
+  }
+
+  farmerActive(): boolean {
+    return this.role == 2;
+  }
+
+  async presentAlert(header: string, subHeader: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      subHeader: subHeader,
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  onSubmit() {
+    let pass = this.form.password;
+    let cpass = this.form.cpassword;
+    if (pass != null && pass.length >= 3 && cpass != null && cpass.length >= 3 && pass == cpass) {
+      this.passwordMatched = true;
+    } else {
+      this.passwordMatched = false;
+      return;
     }
+    this.signupInfo = new SignUpInfo(
+      this.form.name,
+      this.form.username,
+      this.form.email,
+      this.form.phone,
+      this.role,
+      this.form.password,);
+    this.authService.signUp(this.signupInfo).subscribe(
+      data => {
+        if (data.success) {
+          this.presentAlert('Success', '', "Registered successfully, please login");
+          this.route.navigate(['/login']);
+        } else {
+          this.presentAlert('Failed', '', data.message);
+        }
+
+      },
+      error => {
+        console.log(error);
+        this.presentAlert('Failed', '', 'Failed to register');
+      }
+    );
   }
 }
