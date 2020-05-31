@@ -6,10 +6,10 @@
     <ion-title>My Store</ion-title>
     <ion-buttons slot="end">
       <ion-button href="app-tab/tabs/my-store/config">
-        <ion-icon name="settings"></ion-icon>
+        <ion-icon name="pin"></ion-icon>
         Address
       </ion-button>
-      <ion-button routerLink="new">
+      <ion-button routerLink="new" [disabled]="!configAddress">
         <ion-icon  name="add"></ion-icon>
         New
       </ion-button>
@@ -18,10 +18,10 @@
 
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-button color="primary" (click)="search(1)"> Search</ion-button>
+      <ion-button class="button-round" color="primary" (click)="search(1)" fill="solid"> Search</ion-button>
     </ion-buttons>
 
-    <ion-select style="border: 1px solid" id="status" name="status" [(ngModel)]="form.status" #status="ngModel">
+    <ion-select class="select-border-round" id="status" name="status" [(ngModel)]="form.status" #status="ngModel">
       <ion-select-option value="">All</ion-select-option>
       <ion-select-option value="PENDING">Pending</ion-select-option>
       <ion-select-option value="APPROVED">Approved</ion-select-option>
@@ -30,25 +30,40 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let product of subProducts" routerLink="detail/{{product.id}}">
-      <ion-thumbnail slot="start">
-        <ion-img src="{{configuration.host}}/api/guest/file/{{product.images[0]}}"></ion-img>
-      </ion-thumbnail>
-      <ion-label>
-        {{product.name}}
-        <p *ngIf="product.promotionActive"><span class="main-price">PHP {{product.price | number}}</span><span class="discounted-price">PHP {{product.promotionPrice | number}}</span></p>
-        <p *ngIf="!product.promotionActive"><span class="discounted-price">PHP {{product.price | number}}</span></p>
-      </ion-label>
-      <ion-label>
-        <p>{{product.quantity - product.totalOrder}} kg(s)</p>
-        <p>{{product.status}}</p>
-      </ion-label>
+  <ion-row *ngIf="!configAddress" class="ion-padding">
+    <ion-col>
+      <ion-label color="danger">Please note that you can sell your products after setting your store address</ion-label>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="!configAddress" class="ion-padding">
+    <ion-col>
+      <ion-button href="app-tab/tabs/my-store/config" expand="block">Set Address Now</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-list *ngIf="configAddress">
+    <ion-item *ngIf="subProducts.length==0">
+      <ion-label>There's no product</ion-label>
     </ion-item>
+    <div *ngIf="subProducts.length>0">
+      <ion-item *ngFor="let product of subProducts" routerLink="detail/{{product.id}}">
+        <ion-thumbnail slot="start">
+          <ion-img src="{{configuration.host}}/api/guest/file/{{product.images[0]}}"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          {{product.name}}
+          <p *ngIf="product.promotionActive"><span class="main-price">PHP {{product.price | number}}</span><span class="discounted-price">PHP {{product.promotionPrice | number}}</span></p>
+          <p *ngIf="!product.promotionActive"><span class="discounted-price">PHP {{product.price | number}}</span></p>
+        </ion-label>
+        <ion-label>
+          <p>{{product.quantity - product.totalOrder}} kg(s)</p>
+          <p>{{product.status}}</p>
+        </ion-label>
+      </ion-item>
+    </div>
   </ion-list>
   <ion-footer>
-    <ion-list>
-      <ion-item>
+    <ion-list *ngIf="configAddress">
+      <ion-item *ngIf="subProducts.length>0">
         <ion-buttons slot="end">
           <ion-button class="pagination-button" *ngFor="let page of pages" (click)="gotoPage(page)" fill="solid" [color]="page==currentPage?'primary': 'secondary'">{{page}}</ion-button>
         </ion-buttons>

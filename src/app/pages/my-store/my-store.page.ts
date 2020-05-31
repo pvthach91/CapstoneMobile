@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Product} from "../../model/product.model";
 import {configuration} from '../../model/configuration.model';
 import {AlertController} from "@ionic/angular";
@@ -6,6 +6,8 @@ import {ActivatedRoute} from "@angular/router";
 import {TokenStorageService} from "../../auth/token-storage.service";
 import {ProductService} from "../../services/product.service";
 import {ProductCriteriaSearch} from "../../model/product-criteria-search.model";
+import {User} from "../../model/user.model";
+import {AdminService} from "../../services/admin.service";
 
 @Component({
   selector: 'app-my-store',
@@ -24,16 +26,20 @@ export class MyStorePage implements OnInit {
 
   private configuration = configuration;
 
+  configAddress:boolean = false;
+
   constructor(public alertController: AlertController,
               private route: ActivatedRoute,
               private tokenStorage: TokenStorageService,
+              private adminService: AdminService,
               private productService: ProductService) { }
 
   ngOnInit() {
     this.route.params.subscribe(
       params => {
         this.form.status = '';
-        this.search(1);
+        this.getCurrentUser();
+        // this.search(1);
       });
   }
 
@@ -115,6 +121,24 @@ export class MyStorePage implements OnInit {
       },
       error => {
         this.presentAlert("Error", '', 'Failed to approve the product');
+      }
+    );
+  }
+
+  getCurrentUser() {
+    this.adminService.getCurrentUser().subscribe(
+      data => {
+        let user:User = data;
+        if (user.longitude == null || user.longitude == undefined || user.longitude ==0
+          || user.latitude == null || user.latitude == undefined || user.latitude ==0
+          || user.state == null || user.state == undefined || user.state.length==0) {
+          this.configAddress = false;
+        } else {
+          this.configAddress = true;
+          this.search(1);
+        }
+      },
+      error => {
       }
     );
   }

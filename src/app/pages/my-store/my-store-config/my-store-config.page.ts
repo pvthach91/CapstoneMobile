@@ -114,7 +114,7 @@ export class MyStoreConfigPage implements OnInit {
     this.adminService.updateAddress(userRequest).subscribe(
       data => {
         if (data != null) {
-          this.router.navigate(['/my-account/my-store']);
+          this.router.navigate(['/app-tab/tabs/my-store']);
         } else {
           this.presentAlert('Error', '', 'Failed to update store address');
         }
