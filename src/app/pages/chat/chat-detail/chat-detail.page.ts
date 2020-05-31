@@ -44,6 +44,10 @@ export class ChatDetailPage implements OnInit {
     });
   }
 
+  ionViewDidEnter() {
+    this.content.scrollToBottom();
+  }
+
   async presentAlert(header: string, subHeader: string, message: string) {
     const alert = await this.alertController.create({
       header: header,
@@ -56,6 +60,7 @@ export class ChatDetailPage implements OnInit {
   }
 
   getChats() {
+    let chatDetail = this;
     this.chatService.getChats(this.id).subscribe(
       data => {
         if (data != null) {
@@ -63,8 +68,8 @@ export class ChatDetailPage implements OnInit {
           this.convertToMessage(chats);
           // this.content.scrollToBottom();
           // this.content.scrollToBottom(1500);
-          var objDiv = document.getElementById("main-content");
-          objDiv.scrollTop = objDiv.scrollHeight;
+          // var objDiv = document.getElementById("main-content");
+          // objDiv.scrollTop = objDiv.scrollHeight;
         } else {
           this.presentAlert('Error', '', 'Failed to gt message');
         }
