@@ -6,7 +6,7 @@
     <ion-title>Order</ion-title>
       <ion-buttons slot="end">
         <ion-label color="primary">Select status</ion-label>
-        <ion-select id="status" name="status" [(ngModel)]="form.status" #status="ngModel" style="border: 1px solid">
+        <ion-select class="select-border-round" id="status" name="status" [(ngModel)]="form.status" #status="ngModel" style="border: 1px solid">
           <ion-select-option value="all">All</ion-select-option>
           <ion-select-option value="PROCESSING">Processing</ion-select-option>
           <ion-select-option value="PROCESSED">Processed</ion-select-option>
@@ -19,7 +19,7 @@
 
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-button color="primary" (click)="search(1)"> Search</ion-button>
+      <ion-button class="button-round" color="primary" (click)="search(1)" fill="solid"> Search</ion-button>
     </ion-buttons>
     <ion-searchbar placeholder="Search" id="orderId" name="orderId" [(ngModel)]="form.orderId" #orderId="ngModel"></ion-searchbar>
   </ion-toolbar>
