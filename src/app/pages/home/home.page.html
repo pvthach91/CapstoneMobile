@@ -3,7 +3,17 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+
     <ion-title>Home</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="openAdvancedSearch()" *ngIf="!advancedSearchActive">
+        <ion-icon name="funnel"></ion-icon>
+      </ion-button>
+      <ion-button (click)="closeAdvancedSearch()" *ngIf="advancedSearchActive">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 
   <ion-toolbar>
@@ -14,10 +24,71 @@
 
     <ion-searchbar [(ngModel)]="form.productName" placeholder="Search"></ion-searchbar>
   </ion-toolbar>
+  <ion-toolbar *ngIf="advancedSearchActive">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4">
+          <ion-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="form.checkPoultry"></ion-checkbox> Poultry
+        </ion-col>
+        <ion-col size="4">
+          <ion-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="form.checkLivestock"></ion-checkbox> Livestock
+        </ion-col>
+        <ion-col size="4">
+          <ion-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="form.checkAquatic"></ion-checkbox> Aquatic
+        </ion-col>
+        <ion-col size="4">
+          <ion-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="form.checkVegetable"></ion-checkbox> Vegetable
+        </ion-col>
+        <ion-col size="4">
+          <ion-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="form.checkFruit"></ion-checkbox> Fruit
+        </ion-col>
+        <ion-col size="4">
+          <ion-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="form.checkOther"></ion-checkbox> Other
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <ion-label position="stacked" color="primary">Search by price</ion-label>
+          <ion-select class="select-border-round" id="price" name="price" [(ngModel)]="form.price" #price="ngModel">
+            <ion-select-option value="">All prices</ion-select-option>
+            <ion-select-option value="1;100">1 - 100</ion-select-option>
+            <ion-select-option value="101;200">101 - 200</ion-select-option>
+            <ion-select-option value="201;300">201 - 300</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <ion-col size="6">
+          <ion-label position="stacked" color="primary">Sale off</ion-label>
+          <ion-select class="select-border-round" id="onsale" name="onsale" [(ngModel)]="form.onsale">
+            <ion-select-option value="">Both</ion-select-option>
+            <ion-select-option value="true">On Sale</ion-select-option>
+            <ion-select-option value="false">Not On sale</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <ion-col size="6">
+          <ion-label position="stacked" color="primary">Search nearby</ion-label>
+          <ion-select class="select-border-round"  id="nearBy" name="nearBy" [(ngModel)]="form.nearBy" #nearBy="ngModel">
+            <ion-select-option *ngFor="let add of deliverAddress" [value]="add">{{add.name}}</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <ion-col size="6">
+          <ion-label position="stacked" color="primary">Order by</ion-label>
+          <ion-select class="select-border-round">
+            <ion-select-option value="0">Sort By Nearest</ion-select-option>
+            <ion-select-option value="1">Sort By Newness</ion-select-option>
+            <ion-select-option value="2">Price: Low to High</ion-select-option>
+            <ion-select-option value="3">Price: High to Low</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
+    <ion-item *ngIf="subProducts.length==0">
+      <ion-label>There's no product</ion-label>
+    </ion-item>
     <ion-item *ngFor="let product of subProducts" routerLink="/products/detail/{{product.id}}">
       <ion-thumbnail slot="start">
         <ion-img src="{{configuration.host}}/api/guest/file/{{product.images[0]}}"></ion-img>
@@ -34,7 +105,7 @@
     </ion-item>
   </ion-list>
   <ion-footer>
-    <ion-list>
+    <ion-list *ngIf="subProducts.length>0">
       <ion-item>
         <ion-buttons slot="end">
           <ion-button class="pagination-button" *ngFor="let page of pages" (click)="gotoPage(page)" fill="solid" [color]="page==currentPage?'primary': 'secondary'">{{page}}</ion-button>

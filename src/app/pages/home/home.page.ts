@@ -32,6 +32,8 @@ export class HomePage implements OnInit {
 
   private configuration = configuration;
 
+  advancedSearchActive = false;
+
   constructor(public alertController: AlertController,
               private route: ActivatedRoute,
               private cartStorage: CartStorageService,
@@ -53,6 +55,14 @@ export class HomePage implements OnInit {
         this.search();
       });
 
+  }
+
+  openAdvancedSearch() {
+    this.advancedSearchActive = true;
+  }
+
+  closeAdvancedSearch() {
+    this.advancedSearchActive = false;
   }
 
   getAddresses() {
@@ -85,7 +95,7 @@ export class HomePage implements OnInit {
     let price:string = this.form.price;
     let priceFrom = null;
     let priceTo = null;
-    if (price != null || price != undefined) {
+    if ((price != null || price != undefined) && price.length  > 0) {
       let split = price.split(';');
       priceFrom = split[0];
       priceTo = split[1];
@@ -114,6 +124,7 @@ export class HomePage implements OnInit {
         // this.totalPage = data.total;
         this.makePages();
         this.gotoPage(1);
+        this.advancedSearchActive = false;
       },
       error => {
         console.log(error);
