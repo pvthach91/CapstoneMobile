@@ -15,7 +15,8 @@
       </ion-thumbnail>
       <ion-label>
         {{cart.product.name}}
-        <p>PHP {{cart.product.promotionPrice | number}}</p>
+        <p>PHP {{cart.product.promotionPrice | number}} * {{cart.quantity}}</p>
+        <p>PHP <strong>{{cart.product.promotionPrice * cart.quantity | number}}</strong></p>
       </ion-label>
       <div slot="end" class="item-list-right">
 <!--        <ion-button (click)="removeItem(cart.product.id)" color="danger">x</ion-button>-->
