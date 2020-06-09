@@ -66,17 +66,18 @@
         </ion-col>
         <ion-col size="6">
           <ion-label position="stacked" color="primary">Search nearby</ion-label>
-          <ion-select class="select-border-round"  id="nearBy" name="nearBy" [(ngModel)]="form.nearBy" #nearBy="ngModel">
+          <ion-select class="select-border-round"  id="nearBy" name="nearBy" [(ngModel)]="form.nearBy" #nearBy="ngModel" (ionChange)="searchNearbySelect()">
+            <ion-select-option [value]="">All</ion-select-option>
             <ion-select-option *ngFor="let add of deliverAddress" [value]="add">{{add.name}}</ion-select-option>
           </ion-select>
         </ion-col>
         <ion-col size="6">
-          <ion-label position="stacked" color="primary">Order by</ion-label>
-          <ion-select class="select-border-round">
-            <ion-select-option value="0">Sort By Nearest</ion-select-option>
-            <ion-select-option value="1">Sort By Newness</ion-select-option>
-            <ion-select-option value="2">Price: Low to High</ion-select-option>
-            <ion-select-option value="3">Price: High to Low</ion-select-option>
+          <ion-label position="stacked" color="primary">Sort by</ion-label>
+          <ion-select class="select-border-round"  id="sort" name="sort" [(ngModel)]="form.sort" #sort="ngModel">
+            <ion-select-option [value]="0">Sort By Newness</ion-select-option>
+            <ion-select-option [value]="1">Price: Low to High</ion-select-option>
+            <ion-select-option [value]="2">Price: High to Low</ion-select-option>
+            <ion-select-option [value]="3">Sort By Nearest</ion-select-option>
           </ion-select>
         </ion-col>
       </ion-row>
@@ -97,6 +98,7 @@
         {{product.name}}
         <p *ngIf="product.promotionActive"><span class="main-price">PHP {{product.price | number}}</span><span class="discounted-price">PHP {{product.promotionPrice | number}}</span></p>
         <p *ngIf="!product.promotionActive"><span class="discounted-price">PHP {{product.price | number}}</span></p>
+        <p *ngIf="product.distance != null">{{product.distance}} km(s)</p>
       </ion-label>
       <ion-label>
         Available

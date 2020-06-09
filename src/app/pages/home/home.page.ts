@@ -10,6 +10,7 @@ import {TokenStorageService} from "../../auth/token-storage.service";
 import {ConfigurationStorage} from "../../services/configuration-storage.service";
 import {ProductService} from "../../services/product.service";
 import {ProductCriteriaSearch} from "../../model/product-criteria-search.model";
+import {DistanceService} from "../../services/distance.service";
 
 @Component({
   selector: 'app-home',
@@ -40,6 +41,7 @@ export class HomePage implements OnInit {
               private addressService: AddressService,
               private tokenStorage: TokenStorageService,
               private configurationStorage: ConfigurationStorage,
+              private distanceService: DistanceService,
               private productService: ProductService) { }
 
   ngOnInit() {
@@ -109,21 +111,36 @@ export class HomePage implements OnInit {
     } else {
       onsale = false;
     }
+    let nearBy = null;
+    if (this.form.sort == 3) {
+      if (this.form.nearBy != null && this.form.nearBy != undefined && this.form.nearBy != '') {
+        nearBy = this.form.nearBy.state;
+      } else {
+        this.presentAlert('Warning', '', 'Please select your address for searching nearby');
+        return;
+      }
+    }
+
     let criteria = new ProductCriteriaSearch(
       this.form.productName,
       this.generateCategories(),
-      this.form.nearBy == null ? '': this.form.nearBy.state,
+      nearBy,
       priceFrom,
       priceTo,
       onsale,
-      0);
+      this.form.sort);
     this.productService.getProducts(criteria).subscribe(
       data => {
         this.products = data;
         // this.currentPage = data.current;
         // this.totalPage = data.total;
-        this.makePages();
-        this.gotoPage(1);
+        if (this.form.sort == 3) {
+          this.sortProductNearest();
+        } else {
+          this.makePages();
+          this.gotoPage(1);
+        }
+
         this.advancedSearchActive = false;
       },
       error => {
@@ -221,6 +238,38 @@ export class HomePage implements OnInit {
   searchFromHeader() {
     // this.form.productName = productName;
     // this.search();
+  }
+
+  sortProductNearest() {
+    let nearBy = this.form.nearBy;
+    if (nearBy == null && nearBy == undefined && nearBy == '') {
+      this.makePages();
+      this.gotoPage(1);
+      return;
+    }
+    this.products.forEach((product, index) => {
+      let d = this.distanceService.distance(nearBy.latitude, nearBy.longitude, product.user.latitude, product.user.longitude);
+      let str = (d/1000).toFixed(2);
+      d = parseFloat(str);
+      product.distance = d;
+    });
+
+
+    this.products.sort((a, b) => {
+      return a.distance - b.distance;
+    })
+
+    this.makePages();
+    this.gotoPage(1);
+  }
+
+  searchNearbySelect() {
+    let nearBy = this.form.nearBy;
+    if (nearBy == null && nearBy == undefined && nearBy == '') {
+      this.form.sort = 0;
+    } else {
+      this.form.sort = 3;
+    }
   }
 
 }
