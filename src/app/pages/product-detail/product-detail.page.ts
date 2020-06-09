@@ -34,6 +34,7 @@ export class ProductDetailPage implements OnInit {
   comments: Array<Comment> = new Array<Comment>();
   rates: Array<Rate> = new Array<Rate>();
   recommendations: Array<Product> = new Array<Product>();
+  recSlides: Array<RecommendationSlide> = new Array<RecommendationSlide>();
   productDetail: ProductDetail = new ProductDetail(this.dto,[], [], []);
 
   savedCurrentPhoto;
@@ -162,6 +163,7 @@ export class ProductDetailPage implements OnInit {
           this.rates = this.productDetail.rates;
           this.calculaterates();
           this.recommendations = this.productDetail.recommendations;
+          this.makeRecommendation();
           this.savedCurrentPhoto = configuration.host + '/api/guest/file/' + this.dto.images[0];
         } else {
           this.presentAlert('Error', '', data.message);
@@ -330,4 +332,27 @@ export class ProductDetailPage implements OnInit {
     this.router.navigateByUrl('app-tab/tabs/chat/detail/' + this.linkId);
   }
 
+  makeRecommendation() {
+    this.recSlides = new Array<RecommendationSlide>();
+    let totalSlide = 0;
+    if (this.recommendations.length % 2 == 0) {
+      totalSlide = this.recommendations.length / 2;
+    } else {
+      totalSlide = this.recommendations.length / 2 + 1;
+    }
+    let index = 0;
+    for (let i = 0; i < totalSlide ; i++) {
+      let recSlide: RecommendationSlide = new RecommendationSlide();
+      recSlide.product1 = this.recommendations[index];
+      recSlide.product2 = this.recommendations[index + 1];
+      this.recSlides.push(recSlide);
+      index = index+ 2;
+    }
+  }
+
+}
+
+export class RecommendationSlide {
+  product1: Product;
+  product2: Product;
 }
