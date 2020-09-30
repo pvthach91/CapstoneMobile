@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Contact Us</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id = "contact-location-map" style = "height:250px;"></div>
+  <div class="about-info">
+    <p class="ion-padding-start ion-padding-end">
+      Tell Us Your Message
+    </p>
+  </div>
+
+  <form #loginForm="ngForm" novalidate>
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked" color="primary">Your Name</ion-label>
+        <ion-input type="text" spellcheck="false" autocapitalize="off">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Your Email</ion-label>
+        <ion-input type="email">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Subject</ion-label>
+        <ion-input type="text" spellcheck="false" autocapitalize="off">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" color="primary">Your Message</ion-label>
+        <ion-input type="text" spellcheck="false" autocapitalize="off">
+        </ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" expand="block">Submit</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

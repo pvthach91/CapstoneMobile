@@ -79,8 +79,11 @@ const routes: Routes = [
   {
     path: 'vehicle',
     loadChildren: () => import('./pages/vehicle/vehicle.module').then( m => m.VehiclePageModule)
-  }
-  ,
+  },
+  {
+    path: 'contact',
+    loadChildren: () => import('./pages/contact/contact.module').then( m => m.ContactPageModule)
+  },
   {
     path: '',
     redirectTo: '/tutorial',

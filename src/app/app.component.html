@@ -127,6 +127,15 @@
           </ion-menu-toggle>
 
           <ion-menu-toggle autoHide="false">
+            <ion-item routerLink="/contact" routerLinkActive="active" routerDirection="root" detail="false">
+              <ion-icon slot="start" name="mail"></ion-icon>
+              <ion-label>
+                Contact Us
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle autoHide="false">
             <ion-item routerLink="/about" routerLinkActive="active" routerDirection="root" detail="false">
               <ion-icon slot="start" name="help"></ion-icon>
               <ion-label>
@@ -155,18 +164,6 @@
 
         </ion-list>
 
-
-        <ion-list lines="none">
-          <ion-list-header>
-            Tutorial
-          </ion-list-header>
-          <ion-menu-toggle autoHide="false">
-            <ion-item button (click)="openTutorial()" detail="false">
-              <ion-icon slot="start" name="hammer"></ion-icon>
-              <ion-label>Show Tutorial</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
 
         <ion-list>
           <ion-item>
