@@ -14,6 +14,7 @@ import { environment } from '../environments/environment';
 import { FormsModule } from '@angular/forms';
 import {AuthInterceptor} from "./auth/auth-interceptor";
 import {ImagePicker} from "@ionic-native/image-picker/ngx";
+import {Camera} from "@ionic-native/camera/ngx";
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import {ImagePicker} from "@ionic-native/image-picker/ngx";
   providers: [InAppBrowser, SplashScreen, StatusBar,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     ImagePicker,
+    Camera,
     ],
   bootstrap: [AppComponent]
 })

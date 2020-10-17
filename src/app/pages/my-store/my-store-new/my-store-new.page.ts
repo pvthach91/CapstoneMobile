@@ -9,6 +9,7 @@ import {FarmerService} from "../../../services/farmer.service";
 import {AdminService} from "../../../services/admin.service";
 import {ProductService} from "../../../services/product.service";
 import {ImagePicker} from "@ionic-native/image-picker/ngx";
+import {Camera} from "@ionic-native/camera/ngx";
 
 @Component({
   selector: 'app-my-store-new',
@@ -49,6 +50,7 @@ export class MyStoreNewPage implements OnInit {
               private farmService: FarmerService,
               private adminService: AdminService,
               private imagePicker: ImagePicker,
+              private camera: Camera,
               private productService: ProductService) { }
 
   ngOnInit() {
@@ -168,13 +170,15 @@ export class MyStoreNewPage implements OnInit {
       width: 800,
       height: 800,
       quality: 100,
-      // mediaType: this.camera.MediaType.PICTURE,
-      // sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       outputType: 1 //Set output type to 1 to get base64img
     };
 
     this.imagePicker.getPictures(options).then((results) => {
       if (results != null && results.length > 0) {
+        let today = new Date();
+        let name = today.getFullYear()+'_'+(today.getMonth()+1)+'_'+today.getDate() + today.getHours() + "_" + today.getMinutes() + "_" + today.getSeconds();
         this.displayOldImages = false;
         this.imagesMap = new Map<number, File>();
         for (var i = 0; i < results.length; i++) {
@@ -182,7 +186,7 @@ export class MyStoreNewPage implements OnInit {
           console.log('Image URI: ' + results[i]);
           // alert('Image URI: ' + results[i]);
           let blob = this.getBlob(results[i], ".jpg");
-          const file = new File([blob], "image.jpg");
+          let file = new File([blob], name + "_"+ i + ".jpg");
 
           this.imagesMap.set(i, file);
         }
@@ -203,6 +207,7 @@ export class MyStoreNewPage implements OnInit {
   makeDisplayImages(): void {
     this.displayImagesMap = new Map<number, string>();
     this.imagesMap.forEach((file, index) => {
+      alert(file.name);
       let reader = new FileReader();
       reader.onload = (e: any) => {
         this.displayImages.push(e.target.result);
@@ -304,7 +309,7 @@ export class MyStoreNewPage implements OnInit {
     this.productService.addProduct(product).subscribe(
       data => {
         if (data.success) {
-          this.router.navigate(['/my-account/my-store']);
+          this.router.navigate(['/app-tab/tabs/my-store']);
         } else {
           this.presentAlert('Failed', '', data.message);
         }

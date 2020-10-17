@@ -20,8 +20,9 @@
           </ion-row>
           <ion-list>
             <ion-item>
-              <ion-label position="stacked" color="primary">Photo*</ion-label>
-              <input type="file" class="form-control" id="exampleInputFile" multiple="multiple" (change)="onFileChanged($event)" accept=".png,.jpg">
+<!--              <ion-label position="stacked" color="primary">Photo*</ion-label>-->
+<!--              <input type="file" class="form-control" id="exampleInputFile" multiple="multiple" (change)="onFileChanged($event)" accept=".png,.jpg">-->
+              <ion-button (click)="onImagePicker()" color="primary">Choose photos</ion-button>
             </ion-item>
             <ion-item>
               <ion-label position="stacked" color="primary">Length of farm(m)*</ion-label>

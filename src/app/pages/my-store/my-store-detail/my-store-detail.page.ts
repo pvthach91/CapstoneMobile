@@ -11,6 +11,8 @@ import {CommentService} from "../../../services/comment.service";
 import {TokenStorageService} from "../../../auth/token-storage.service";
 import {ProductService} from "../../../services/product.service";
 import {Comment} from "../../../model/comment.model";
+import {ImagePicker} from "@ionic-native/image-picker/ngx";
+import {Camera} from "@ionic-native/camera/ngx";
 
 @Component({
   selector: 'app-my-store-detail',
@@ -63,6 +65,8 @@ export class MyStoreDetailPage implements OnInit {
               private farmService: FarmerService,
               public commentService: CommentService,
               private tokenStorage: TokenStorageService,
+              private imagePicker: ImagePicker,
+              private camera: Camera,
               private productService: ProductService) { }
 
   ngOnInit() {
@@ -174,6 +178,68 @@ export class MyStoreDetailPage implements OnInit {
       }
       this.makeDisplayImages();
     }
+  }
+
+  onImagePicker() {
+    const options = {
+      maximumImagesCount: 3,
+      width: 800,
+      height: 800,
+      quality: 100,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      outputType: 1 //Set output type to 1 to get base64img
+    };
+
+    this.imagePicker.getPictures(options).then((results) => {
+        if (results != null && results.length > 0) {
+          let today = new Date();
+          let name = today.getFullYear()+'_'+(today.getMonth()+1)+'_'+today.getDate() + today.getHours() + "_" + today.getMinutes() + "_" + today.getSeconds();
+          this.displayOldImages = false;
+          this.imagesMap = new Map<number, File>();
+          for (var i = 0; i < results.length; i++) {
+            if (i >= 3) break;
+            console.log('Image URI: ' + results[i]);
+            // alert('Image URI: ' + results[i]);
+            let blob = this.getBlob(results[i], ".jpg");
+            let file = new File([blob], name + "_"+ i + ".jpg");
+
+            this.imagesMap.set(i, file);
+          }
+          this.makeDisplayImages();
+        }
+        // var files: File[] = [];
+        // for (var i = 0; i < results.length; i++) {
+        //   console.log('Image URI: ' + results[i]);
+        //   alert('Image URI: ' + results[i]);
+        //   let blob = this.getBlob(results[i], ".jpg");
+        //   const file = new File([blob], "image.jpg");
+        //   files.push(file);
+        // }
+      }
+      ,(err) => { });
+  }
+
+  private getBlob(b64Data:string, contentType:string, sliceSize:number= 512) {
+    contentType = contentType || '';
+    sliceSize = sliceSize || 512;
+    let byteCharacters = atob(b64Data);
+    let byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      let slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      let byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      let byteArray = new Uint8Array(byteNumbers);
+
+      byteArrays.push(byteArray);
+    }
+    let blob = new Blob(byteArrays, {type: contentType});
+    return blob;
   }
 
   makeDisplayImages(): void {
