@@ -53,7 +53,6 @@ export class ChatPage implements OnInit {
       },
       error => {
         console.log(error);
-        this.presentAlert('Error', '', error.toString());
       }
     );
   }
