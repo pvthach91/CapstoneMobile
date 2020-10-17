@@ -13,6 +13,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { FormsModule } from '@angular/forms';
 import {AuthInterceptor} from "./auth/auth-interceptor";
+import {ImagePicker} from "@ionic-native/image-picker/ngx";
 
 @NgModule({
   imports: [
@@ -28,7 +29,9 @@ import {AuthInterceptor} from "./auth/auth-interceptor";
   ],
   declarations: [AppComponent],
   providers: [InAppBrowser, SplashScreen, StatusBar,
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    ImagePicker,
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

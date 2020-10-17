@@ -33,8 +33,10 @@
           <ion-row class="ion-no-padding ion-justify-content-center">
             <ion-col class="ion-text-left">
               <ion-item>
-                <ion-label position="stacked" color="primary">Photo*</ion-label>
-                <input type="file" class="form-control" id="exampleInputFile" multiple="multiple" (change)="onFileChanged($event)" accept=".png,.jpg">
+<!--                <ion-label position="stacked" color="primary">Photo*</ion-label>-->
+<!--                <input type="file" class="form-control" id="exampleInputFile" multiple="multiple" (change)="onFileChanged($event)" accept=".png,.jpg">-->
+
+                <ion-button (click)="onImagePicker()" color="primary">Choose photos</ion-button>
               </ion-item>
 <!--              <ion-item>-->
 <!--                <ion-button [disabled]="displayOldImages" (click)="cancelUpload()" color="primary">Cancel Upload</ion-button>-->

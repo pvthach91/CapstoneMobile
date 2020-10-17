@@ -8,6 +8,7 @@ import {FileUploadService} from "../../../services/file-upload.service";
 import {FarmerService} from "../../../services/farmer.service";
 import {AdminService} from "../../../services/admin.service";
 import {ProductService} from "../../../services/product.service";
+import {ImagePicker} from "@ionic-native/image-picker/ngx";
 
 @Component({
   selector: 'app-my-store-new',
@@ -24,6 +25,7 @@ export class MyStoreNewPage implements OnInit {
   selectedFile: Array<File>;
   displayImages = new Array<string>();
   displayImagesMap: Map<number, string> = new Map<number, string>();
+  displayMobileImagesMap: Map<number, string> = new Map<number, string>();
   imagesMap: Map<number, File> = new Map<number, File>();
   oldImagesMap: Map<number, string> = new Map<number, string>();
   displayOldImages = false;
@@ -46,6 +48,7 @@ export class MyStoreNewPage implements OnInit {
               private fileUploadService: FileUploadService,
               private farmService: FarmerService,
               private adminService: AdminService,
+              private imagePicker: ImagePicker,
               private productService: ProductService) { }
 
   ngOnInit() {
@@ -159,6 +162,44 @@ export class MyStoreNewPage implements OnInit {
     }
   }
 
+  onImagePicker() {
+    const options = {
+      maximumImagesCount: 3,
+      width: 800,
+      height: 800,
+      quality: 100,
+      // mediaType: this.camera.MediaType.PICTURE,
+      // sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      outputType: 1 //Set output type to 1 to get base64img
+    };
+
+    this.imagePicker.getPictures(options).then((results) => {
+      if (results != null && results.length > 0) {
+        this.displayOldImages = false;
+        this.imagesMap = new Map<number, File>();
+        for (var i = 0; i < results.length; i++) {
+          if (i >= 3) break;
+          console.log('Image URI: ' + results[i]);
+          // alert('Image URI: ' + results[i]);
+          let blob = this.getBlob(results[i], ".jpg");
+          const file = new File([blob], "image.jpg");
+
+          this.imagesMap.set(i, file);
+        }
+        this.makeDisplayImages();
+      }
+      // var files: File[] = [];
+      // for (var i = 0; i < results.length; i++) {
+      //   console.log('Image URI: ' + results[i]);
+      //   alert('Image URI: ' + results[i]);
+      //   let blob = this.getBlob(results[i], ".jpg");
+      //   const file = new File([blob], "image.jpg");
+      //   files.push(file);
+      // }
+    }
+    ,(err) => { });
+}
+
   makeDisplayImages(): void {
     this.displayImagesMap = new Map<number, string>();
     this.imagesMap.forEach((file, index) => {
@@ -169,6 +210,28 @@ export class MyStoreNewPage implements OnInit {
       }
       reader.readAsDataURL(file);
     });
+  }
+
+  private getBlob(b64Data:string, contentType:string, sliceSize:number= 512) {
+    contentType = contentType || '';
+    sliceSize = sliceSize || 512;
+    let byteCharacters = atob(b64Data);
+    let byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      let slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      let byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      let byteArray = new Uint8Array(byteNumbers);
+
+      byteArrays.push(byteArray);
+    }
+    let blob = new Blob(byteArrays, {type: contentType});
+    return blob;
   }
 
   getSelectedFiles(): void {
